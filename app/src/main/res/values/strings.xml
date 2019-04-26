@@ -8,4 +8,5 @@
     <string name="meeting_name">Nazwa spotkania</string>
     <string name="meeting_days">Ilość dni</string>
     <string name="add_btn">Dodaj</string>
+    <string name="title_activity_add_for_what">AddForWhatActivity</string>
 </resources>

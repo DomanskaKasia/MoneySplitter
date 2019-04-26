@@ -43,7 +43,7 @@ class AppDatabase extends SQLiteOpenHelper {
 
         String sql;
         sql = "CREATE TABLE " + Meeting.TABLE_NAME + " (" +
-                Meeting.Column.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Meeting.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 Meeting.Column.NAME + " TEXT, " +
                 Meeting.Column.DAYS + " INTEGER, " +
                 Meeting.Column.ID_FOR_WHAT + " INTEGER, " +
