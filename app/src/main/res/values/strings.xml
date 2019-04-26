@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Money Splitter</string>
+
+    <!--main-->
+    <string name="add_meeting_btn">Dodaj spotkanie</string>
+
+    <!--add_meeting-->
+    <string name="meeting_name">Nazwa spotkania</string>
+    <string name="meeting_days">Ilość dni</string>
+    <string name="add_btn">Dodaj</string>
 </resources>
