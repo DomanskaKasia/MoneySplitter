@@ -16,8 +16,6 @@ import android.widget.Toast;
 public class AddMeetingActivity extends AppCompatActivity {
     private static final String TAG = "AddMeetingActivity";
 
-//    public static final String CHOSEN_NAME = "chosenName";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +47,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
                         Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
-//                        intent.putExtra(CHOSEN_NAME, name);
+                        intent.putExtra("meetingName", name);
                         startActivity(intent);
                     } else {
                         Toast.makeText(AddMeetingActivity.this, "Wpisz nazwę spotkania", Toast.LENGTH_LONG).show();

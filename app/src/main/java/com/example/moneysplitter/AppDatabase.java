@@ -123,9 +123,9 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "insertPerson: starts");
 
         ContentValues m = new ContentValues();
-        m.put(Meeting.Column.NAME, name);
-        m.put(Meeting.Column.DAYS, days);
-        db.insert(Meeting.TABLE_NAME, null, m);
+        m.put(Person.Column.NAME, name);
+        m.put(Person.Column.DAYS, days);
+        db.insert(Person.TABLE_NAME, null, m);
 
         Log.d(TAG, "insertPerson: added name: " + name + ", days: " + days);
         Log.d(TAG, "insertPerson: ends");

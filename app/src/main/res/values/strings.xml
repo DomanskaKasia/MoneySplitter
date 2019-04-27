@@ -5,17 +5,22 @@
     <string name="add_meeting_btn">Dodaj spotkanie</string>
 
     <!--add_meeting-->
+    <string name="title_activity_add_meeting">Dodaj nowe spotkanie</string>
     <string name="meeting_name">Nazwa spotkania</string>
     <string name="meeting_days">Ilość dni</string>
     <string name="add_btn">Dodaj</string>
-    <string name="title_activity_add_for_what">AddForWhatActivity</string>
 
     <!--add_person-->
-    <string name="title_activity_add_percon">Dodaj osobę</string>
+    <string name="title_activity_add_person">Dodaj nową osobę</string>
     <string name="person_name">Imię</string>
     <string name="person_days">Ilość dni</string>
 
     <!--add_person_list-->
+    <string name="title_activity_add_person_list">Lista osób</string>
     <string name="add_person_btn">Dodaj osobę</string>
+    <string name="next_view">Dalej</string>
+
+    <!--add_for_what-->
+    <string name="title_activity_add_for_what">Dodaj za co płacicie</string>
 
 </resources>

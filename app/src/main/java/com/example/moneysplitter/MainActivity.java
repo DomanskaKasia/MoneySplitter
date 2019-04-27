@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
 
-        Button btn = findViewById(R.id.add_meeting_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.add_meeting_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddMeetingActivity.class);
