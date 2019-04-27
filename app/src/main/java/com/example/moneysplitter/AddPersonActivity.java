@@ -1,7 +1,6 @@
 package com.example.moneysplitter;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -13,30 +12,28 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddMeetingActivity extends AppCompatActivity {
-    private static final String TAG = "AddMeetingActivity";
-
-//    public static final String CHOSEN_NAME = "chosenName";
+public class AddPersonActivity extends AppCompatActivity {
+    private static final String TAG = "AddPersonActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_meeting);
+        setContentView(R.layout.activity_add_person);
 
-        //pobranie id spotkania z intencji
-//        int meetingId = (Integer)getIntent().getExtras().get(MEETING_ID);
+//        //pobranie nazwy spotkania z intencji
+//        String chosenName = (String)getIntent().getExtras().get();
 
         //pobranie referencji do bazy
-        final SQLiteOpenHelper dbMeetingHelper = AppDatabase.getInstance(this);
+        final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
         try {
-            final SQLiteDatabase db = dbMeetingHelper.getWritableDatabase();
+            final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-            ((Button) findViewById(R.id.add_btn)).setOnClickListener(new View.OnClickListener() {
+            ((Button) findViewById(R.id.add_btn2)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "onClick: starts");
-                    TextView nameView = (TextView) findViewById(R.id.meeting_name);
-                    TextView daysView = (TextView) findViewById(R.id.meeting_days);
+                    TextView nameView = (TextView) findViewById(R.id.person_name);
+                    TextView daysView = (TextView) findViewById(R.id.person_days);
 
                     String name = String.valueOf(nameView.getText());
                     String days = String.valueOf(daysView.getText());
@@ -45,16 +42,14 @@ public class AddMeetingActivity extends AppCompatActivity {
                         days = "1";
 
                     if(!name.equals("")) {
-                        ((AppDatabase) dbMeetingHelper).insertMeeting(db, name, Integer.parseInt(days));
+                        ((AppDatabase) dbHelper).insertPerson(db, name, Integer.parseInt(days));
 
-
-                        Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
-//                        intent.putExtra(CHOSEN_NAME, name);
+                        Intent intent = new Intent(AddPersonActivity.this, AddPersonListActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(AddMeetingActivity.this, "Wpisz nazwę spotkania", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddPersonActivity.this, "Wpisz nazwę spotkania", Toast.LENGTH_LONG).show();
                     }
-
+//
                     Log.d(TAG, "onClick: ends");
                 }
             });

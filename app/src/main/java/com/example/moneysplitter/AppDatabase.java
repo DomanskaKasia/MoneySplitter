@@ -44,15 +44,30 @@ class AppDatabase extends SQLiteOpenHelper {
         String sql;
         sql = "CREATE TABLE " + Meeting.TABLE_NAME + " (" +
                 Meeting.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                Meeting.Column.NAME + " TEXT, " +
+                Meeting.Column.NAME + " TEXT NOT NULL, " +
                 Meeting.Column.DAYS + " INTEGER, " +
-                Meeting.Column.ID_FOR_WHAT + " INTEGER, " +
                 Meeting.Column.ID_PERSONS + " INTEGER);";
         Log.d(TAG, sql);
         db.execSQL(sql);
         insertMeeting(db, "Majowy 2018", 5);
         insertMeeting(db, "Sylwester 2018/19", 3);
         insertMeeting(db, "Lutowy 2019", 4);
+
+        sql = "CREATE TABLE " + Person.TABLE_NAME + " (" +
+                Person.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                Person.Column.NAME + " TEXT NOT NULL, " +
+                Person.Column.DAYS + " INTEGER, " +
+                Person.Column.ID_FOR_WHAT + " INTEGER" +
+                Person.Column.ID_ACTIONS + " INTEGER);";
+        Log.d(TAG, sql);
+        db.execSQL(sql);
+
+        sql = "CREATE TABLE " + ForWhat.TABLE_NAME + " (" +
+                ForWhat.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                ForWhat.Column.NAME + " TEXT NOT NULL, " +
+                ForWhat.Column.CONCERN + " INTEGER);";
+        Log.d(TAG, sql);
+        db.execSQL(sql);
 
         Log.d(TAG, "onCreate: ends");
     }
@@ -80,6 +95,7 @@ class AppDatabase extends SQLiteOpenHelper {
         m.put(Meeting.Column.DAYS, days);
         db.insert(Meeting.TABLE_NAME, null, m);
 
+        Log.d(TAG, "insertMeeting: added name: " + name + ", days: " + days);
         Log.d(TAG, "insertMeeting: ends");
     }
 
@@ -99,5 +115,19 @@ class AppDatabase extends SQLiteOpenHelper {
         db.delete(Meeting.TABLE_NAME, "_id = ?", new String[] {Integer.toString(id)});
 
         Log.d(TAG, "deleteMeetingRow: ends");
+    }
+
+
+
+    public static void insertPerson(SQLiteDatabase db, String name, int days) {
+        Log.d(TAG, "insertPerson: starts");
+
+        ContentValues m = new ContentValues();
+        m.put(Meeting.Column.NAME, name);
+        m.put(Meeting.Column.DAYS, days);
+        db.insert(Meeting.TABLE_NAME, null, m);
+
+        Log.d(TAG, "insertPerson: added name: " + name + ", days: " + days);
+        Log.d(TAG, "insertPerson: ends");
     }
 }
