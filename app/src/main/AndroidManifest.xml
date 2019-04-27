@@ -9,13 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPersonListActivity"></activity>
-        <activity android:name=".AddPersonActivity" />
+        <activity android:name=".AddForWhatListActivity"></activity>
+        <activity
+            android:name=".AddPersonListActivity"
+            android:label="@string/title_activity_add_person_list" />
+        <activity
+            android:name=".AddPersonActivity"
+            android:label="@string/title_activity_add_person" />
         <activity
             android:name=".AddForWhatActivity"
             android:label="@string/title_activity_add_for_what"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddMeetingActivity" />
+        <activity
+            android:name=".AddMeetingActivity"
+            android:label="@string/title_activity_add_meeting" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

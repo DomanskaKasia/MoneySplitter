@@ -130,4 +130,17 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "insertPerson: added name: " + name + ", days: " + days);
         Log.d(TAG, "insertPerson: ends");
     }
+
+
+
+    public static void insertForWhat(SQLiteDatabase db, String name) {
+        Log.d(TAG, "insertForWhat: starts");
+
+        ContentValues m = new ContentValues();
+        m.put(ForWhat.Column.NAME, name);
+        db.insert(ForWhat.TABLE_NAME, null, m);
+
+        Log.d(TAG, "insertForWhat: added name: " + name);
+        Log.d(TAG, "insertForWhat: ends");
+    }
 }

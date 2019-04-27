@@ -22,5 +22,7 @@
 
     <!--add_for_what-->
     <string name="title_activity_add_for_what">Dodaj za co płacicie</string>
+    <string name="for_what_name">Nazwa za co:</string>
+    <string name="add_for_what_btn">Dodaj za co płacicie</string>
 
 </resources>
