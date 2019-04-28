@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,14 +34,23 @@ public class AddForWhatListActivity extends AppCompatActivity {
         forWhatNames = (ListView) findViewById(R.id.for_what_names);
 
         //pobranie referencji do bazy
-        AppDatabase appDatabase = AppDatabase.getInstance(this);
+//        AppDatabase appDatabase = AppDatabase.getInstance(this);
+        final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
 
         try {
-            final SQLiteDatabase db = appDatabase.getReadableDatabase();
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            Log.d(TAG, "onCreate: 1");
+            ((AppDatabase) dbHelper).deleteForWhatNamesView(db);
+            Log.d(TAG, "onCreate: 2");
+            ((AppDatabase) dbHelper).createForWhatNamesView(db);
+            Log.d(TAG, "onCreate: 3");
+
+            db = dbHelper.getReadableDatabase();
             String sql = "SELECT NAME FROM ForWhat GROUP BY NAME";
 //            Cursor cursor = db.rawQuery(sql, new String[] {ForWhat.Column.NAME});
-            Cursor cursor = db.query(ForWhat.TABLE_NAME,
-                    new String[] {ForWhat.Column.NAME},
+            Cursor cursor = db.query("ForWhatNames",
+                    new String[] {"Name"},
                     null,
                     null,
                     null,
@@ -66,6 +76,10 @@ public class AddForWhatListActivity extends AppCompatActivity {
                     Log.d(TAG, "onCreate: table is empty");
                 }
             }
+
+            cursor.close();
+            db.close();
+
         } catch(SQLException e) {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }

@@ -144,4 +144,29 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "insertForWhat: added name: " + name);
         Log.d(TAG, "insertForWhat: ends");
     }
+
+
+
+    public static void createForWhatNamesView(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate: starts");
+
+        String sql;
+        sql = "CREATE VIEW IF NOT EXISTS ForWhatNames AS SELECT DISTINCT " + ForWhat.Column.NAME +
+                " FROM " + ForWhat.TABLE_NAME + ";";
+        Log.d(TAG, sql);
+        db.execSQL(sql);
+
+        Log.d(TAG, "onCreate: ends");
+    }
+
+    public static void deleteForWhatNamesView(SQLiteDatabase db) {
+        Log.d(TAG, "onCreate: starts");
+
+        String sql;
+        sql = "DROP VIEW IF EXISTS ForWhatNames;";
+        Log.d(TAG, sql);
+        db.execSQL(sql);
+
+        Log.d(TAG, "onCreate: ends");
+    }
 }
