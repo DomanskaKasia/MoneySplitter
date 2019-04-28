@@ -7,6 +7,5 @@ public class Meeting {
         public static final String ID = "_id";
         public static final String NAME = "Name";
         public static final String DAYS = "Number_of_days";
-        public static final String ID_PERSONS = "id_persons";
     }
 }

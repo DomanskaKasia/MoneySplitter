@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class AddForWhatActivity extends AppCompatActivity {
     private static final String TAG = "AddForWhatActivity";
 
@@ -22,6 +24,10 @@ public class AddForWhatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_for_what);
+
+        Intent intent = getIntent();
+        final ArrayList<Integer> personsIds = intent.getIntegerArrayListExtra("personsIds");
+        Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         //pobranie referencji do bazy
         final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
@@ -38,9 +44,13 @@ public class AddForWhatActivity extends AppCompatActivity {
                     String name = String.valueOf(nameView.getText());
 
                     if(!name.equals("")) {
-                        ((AppDatabase) dbHelper).insertForWhat(db, name);
+                        for(int id : personsIds) {
+                            ((AppDatabase) dbHelper).insertForWhat(db, name, id);
+                        }
+
 
                         Intent newIntent = new Intent(AddForWhatActivity.this, AddForWhatListActivity.class);
+                        newIntent.putIntegerArrayListExtra("personsIds", personsIds);
                         startActivity(newIntent);
                     } else {
                         Toast.makeText(AddForWhatActivity.this, "Wpisz za co płacicie", Toast.LENGTH_LONG).show();

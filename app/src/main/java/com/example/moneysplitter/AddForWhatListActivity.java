@@ -26,6 +26,10 @@ public class AddForWhatListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_for_what_list);
 
+        Intent intent = getIntent();
+        final ArrayList<Integer> personsIds = intent.getIntegerArrayListExtra("personsIds");
+        Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
+
         forWhatNames = (ListView) findViewById(R.id.for_what_names);
 
         //pobranie referencji do bazy
@@ -33,6 +37,8 @@ public class AddForWhatListActivity extends AppCompatActivity {
 
         try {
             final SQLiteDatabase db = appDatabase.getReadableDatabase();
+            String sql = "SELECT NAME FROM ForWhat GROUP BY NAME";
+//            Cursor cursor = db.rawQuery(sql, new String[] {ForWhat.Column.NAME});
             Cursor cursor = db.query(ForWhat.TABLE_NAME,
                     new String[] {ForWhat.Column.NAME},
                     null,
@@ -67,16 +73,17 @@ public class AddForWhatListActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.add_for_what_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddForWhatListActivity.this, AddForWhatActivity.class);
-                startActivity(intent);
+                Intent newIntent = new Intent(AddForWhatListActivity.this, AddForWhatActivity.class);
+                newIntent.putIntegerArrayListExtra("personsIds", personsIds);
+                startActivity(newIntent);
             }
         });
 
         ((Button) findViewById(R.id.next2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddForWhatListActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent newIntent = new Intent(AddForWhatListActivity.this, MainActivity.class);
+                startActivity(newIntent);
             }
         });
 

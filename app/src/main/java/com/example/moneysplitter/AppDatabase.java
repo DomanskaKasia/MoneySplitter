@@ -45,8 +45,7 @@ class AppDatabase extends SQLiteOpenHelper {
         sql = "CREATE TABLE " + Meeting.TABLE_NAME + " (" +
                 Meeting.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 Meeting.Column.NAME + " TEXT NOT NULL, " +
-                Meeting.Column.DAYS + " INTEGER, " +
-                Meeting.Column.ID_PERSONS + " INTEGER);";
+                Meeting.Column.DAYS + " INTEGER NOT NULL);";
         Log.d(TAG, sql);
         db.execSQL(sql);
         insertMeeting(db, "Majowy 2018", 5);
@@ -56,16 +55,16 @@ class AppDatabase extends SQLiteOpenHelper {
         sql = "CREATE TABLE " + Person.TABLE_NAME + " (" +
                 Person.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 Person.Column.NAME + " TEXT NOT NULL, " +
-                Person.Column.DAYS + " INTEGER, " +
-                Person.Column.ID_FOR_WHAT + " INTEGER" +
-                Person.Column.ID_ACTIONS + " INTEGER);";
+                Person.Column.DAYS + " INTEGER NOT NULL, " +
+                Person.Column.ID_MEETING + " INTEGER);";
         Log.d(TAG, sql);
         db.execSQL(sql);
 
         sql = "CREATE TABLE " + ForWhat.TABLE_NAME + " (" +
                 ForWhat.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
                 ForWhat.Column.NAME + " TEXT NOT NULL, " +
-                ForWhat.Column.CONCERN + " INTEGER);";
+                ForWhat.Column.CONCERN + " INTEGER NOT NULL, " +
+                ForWhat.Column.ID_PERSON + " INTEGER NOT NULL);";
         Log.d(TAG, sql);
         db.execSQL(sql);
 
@@ -133,11 +132,13 @@ class AppDatabase extends SQLiteOpenHelper {
 
 
 
-    public static void insertForWhat(SQLiteDatabase db, String name) {
+    public static void insertForWhat(SQLiteDatabase db, String name, int id_person) {
         Log.d(TAG, "insertForWhat: starts");
 
         ContentValues m = new ContentValues();
         m.put(ForWhat.Column.NAME, name);
+        m.put(ForWhat.Column.CONCERN, true);
+        m.put(ForWhat.Column.ID_PERSON, id_person);
         db.insert(ForWhat.TABLE_NAME, null, m);
 
         Log.d(TAG, "insertForWhat: added name: " + name);

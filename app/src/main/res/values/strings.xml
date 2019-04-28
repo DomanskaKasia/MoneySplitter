@@ -25,4 +25,7 @@
     <string name="for_what_name">Nazwa za co:</string>
     <string name="add_for_what_btn">Dodaj za co płacicie</string>
 
+    <!--add_for_what_list-->
+    <string name="title_activity_add_for_what_list">Lista tego za co płacicie</string>
+
 </resources>

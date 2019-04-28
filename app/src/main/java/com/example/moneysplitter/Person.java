@@ -7,7 +7,6 @@ public class Person {
         public static final String ID = "_id";
         public static final String NAME = "Name";
         public static final String DAYS = "Number_of_days";
-        public static final String ID_FOR_WHAT = "id_for_what";
-        public static final String ID_ACTIONS = "id_actions";
+        public static final String ID_MEETING = "id_meetings";
     }
 }

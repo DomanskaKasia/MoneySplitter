@@ -29,13 +29,15 @@ public class AddPersonListActivity extends AppCompatActivity {
 
         personsNames = (ListView) findViewById(R.id.persons_names);
 
+        final ArrayList<Integer> personsIds = new ArrayList<>();
+
         //pobranie referencji do bazy
         AppDatabase appDatabase = AppDatabase.getInstance(this);
 
         try {
             final SQLiteDatabase db = appDatabase.getReadableDatabase();
             Cursor cursor = db.query(Person.TABLE_NAME,
-                    new String[] {Person.Column.NAME},
+                    new String[] {Person.Column.ID, Person.Column.NAME},
                     null,
                     null,
                     null,
@@ -48,6 +50,7 @@ public class AddPersonListActivity extends AppCompatActivity {
                     do {
                         Log.d(TAG, "onCreate: " + cursor.getColumnIndex(Person.Column.NAME));
                         names.add(cursor.getString(cursor.getColumnIndex(Person.Column.NAME)));
+                        personsIds.add(cursor.getInt(cursor.getColumnIndex(Person.Column.ID)));
                     } while (cursor.moveToNext());
                 }
                 if(!names.isEmpty()) {
@@ -77,6 +80,7 @@ public class AddPersonListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddPersonListActivity.this, AddForWhatActivity.class);
+                intent.putIntegerArrayListExtra("personsIds", personsIds);
                 startActivity(intent);
             }
         });
