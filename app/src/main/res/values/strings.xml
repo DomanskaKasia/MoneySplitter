@@ -27,5 +27,6 @@
 
     <!--add_for_what_list-->
     <string name="title_activity_add_for_what_list">Lista tego za co płacicie</string>
+    <string name="title_activity_main_list">MainListActivity</string>
 
 </resources>

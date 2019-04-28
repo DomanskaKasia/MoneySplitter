@@ -31,6 +31,7 @@ public class AddForWhatActivity extends AppCompatActivity {
 
         //pobranie referencji do bazy
         final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
+
         try {
             final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -47,7 +48,6 @@ public class AddForWhatActivity extends AppCompatActivity {
                         for(int id : personsIds) {
                             ((AppDatabase) dbHelper).insertForWhat(db, name, id);
                         }
-
 
                         Intent newIntent = new Intent(AddForWhatActivity.this, AddForWhatListActivity.class);
                         newIntent.putIntegerArrayListExtra("personsIds", personsIds);

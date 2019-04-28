@@ -64,6 +64,8 @@ public class AddPersonListActivity extends AppCompatActivity {
                     Log.d(TAG, "onCreate: table is empty");
                 }
             }
+            cursor.close();
+
         } catch(SQLException e) {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
