@@ -26,7 +26,7 @@ public class AddPersonActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: meetingName: " + meetingName);
 
         //pobranie referencji do bazy
-        final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
+        final AppDatabase dbHelper = AppDatabase.getInstance(this);
         try {
             final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -45,7 +45,8 @@ public class AddPersonActivity extends AppCompatActivity {
                         days = "1";
 
                     if(!name.equals("")) {
-                        ((AppDatabase) dbHelper).insertPerson(db, name, Integer.parseInt(days));
+                        dbHelper.insertPerson(db, name, Integer.parseInt(days));
+                        db.close();
 
                         Intent newIntent = new Intent(AddPersonActivity.this, AddPersonListActivity.class);
                         startActivity(newIntent);

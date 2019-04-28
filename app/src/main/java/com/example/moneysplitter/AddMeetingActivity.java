@@ -25,7 +25,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 //        int meetingId = (Integer)getIntent().getExtras().get(MEETING_ID);
 
         //pobranie referencji do bazy
-        final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
+        final AppDatabase dbHelper = AppDatabase.getInstance(this);
         try {
             final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -43,8 +43,8 @@ public class AddMeetingActivity extends AppCompatActivity {
                         days = "1";
 
                     if(!name.equals("")) {
-                        ((AppDatabase) dbHelper).insertMeeting(db, name, Integer.parseInt(days));
-
+                        dbHelper.insertMeeting(db, name, Integer.parseInt(days));
+                        db.close();
 
                         Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
                         intent.putExtra("meetingName", name);

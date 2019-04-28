@@ -32,10 +32,10 @@ public class AddPersonListActivity extends AppCompatActivity {
         final ArrayList<Integer> personsIds = new ArrayList<>();
 
         //pobranie referencji do bazy
-        AppDatabase appDatabase = AppDatabase.getInstance(this);
+        final AppDatabase dbHelper = AppDatabase.getInstance(this);
 
         try {
-            final SQLiteDatabase db = appDatabase.getReadableDatabase();
+            final SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query(Person.TABLE_NAME,
                     new String[] {Person.Column.ID, Person.Column.NAME},
                     null,
@@ -65,6 +65,7 @@ public class AddPersonListActivity extends AppCompatActivity {
                 }
             }
             cursor.close();
+            db.close();
 
         } catch(SQLException e) {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();

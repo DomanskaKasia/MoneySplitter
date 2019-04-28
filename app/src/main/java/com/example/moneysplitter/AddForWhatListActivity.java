@@ -35,16 +35,15 @@ public class AddForWhatListActivity extends AppCompatActivity {
 
         //pobranie referencji do bazy
 //        AppDatabase appDatabase = AppDatabase.getInstance(this);
-        final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
+        final AppDatabase dbHelper = AppDatabase.getInstance(this);
 
         try {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-            ((AppDatabase) dbHelper).deleteForWhatNamesView(db);
-            ((AppDatabase) dbHelper).createForWhatNamesView(db);
+            dbHelper.deleteForWhatNamesView(db);
+            dbHelper.createForWhatNamesView(db);
 
             db = dbHelper.getReadableDatabase();
-            String sql = "SELECT NAME FROM ForWhat GROUP BY NAME";
             Cursor cursor = db.query("ForWhatNames",
                     new String[] {ForWhat.Column.NAME},
                     null,
@@ -73,6 +72,7 @@ public class AddForWhatListActivity extends AppCompatActivity {
                 }
             }
             cursor.close();
+            db.close();
 
         } catch(SQLException e) {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();

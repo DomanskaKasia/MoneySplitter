@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         meetingNames = (ListView) findViewById(R.id.meeting_names);
 
         //pobranie referencji do bazy
-        AppDatabase appDatabase = AppDatabase.getInstance(this);
+        final AppDatabase dbHelper = AppDatabase.getInstance(this);
 
         try {
-            final SQLiteDatabase db = appDatabase.getReadableDatabase();
+            final SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query(Meeting.TABLE_NAME,
                     new String[] {Meeting.Column.NAME},
                     null,
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 meetingNames.setAdapter(adapter);
             }
             cursor.close();
+            db.close();
 
         } catch(SQLException e) {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();

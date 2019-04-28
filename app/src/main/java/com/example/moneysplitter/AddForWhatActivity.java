@@ -30,7 +30,7 @@ public class AddForWhatActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         //pobranie referencji do bazy
-        final SQLiteOpenHelper dbHelper = AppDatabase.getInstance(this);
+        final AppDatabase dbHelper = AppDatabase.getInstance(this);
 
         try {
             final SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -46,8 +46,9 @@ public class AddForWhatActivity extends AppCompatActivity {
 
                     if(!name.equals("")) {
                         for(int id : personsIds) {
-                            ((AppDatabase) dbHelper).insertForWhat(db, name, id);
+                            dbHelper.insertForWhat(db, name, id);
                         }
+                        db.close();
 
                         Intent newIntent = new Intent(AddForWhatActivity.this, AddForWhatListActivity.class);
                         newIntent.putIntegerArrayListExtra("personsIds", personsIds);
