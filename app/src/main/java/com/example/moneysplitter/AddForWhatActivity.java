@@ -25,8 +25,7 @@ public class AddForWhatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_for_what);
 
-        Intent intent = getIntent();
-        final ArrayList<Integer> personsIds = intent.getIntegerArrayListExtra("personsIds");
+        final ArrayList<Integer> personsIds = getIntent().getIntegerArrayListExtra("personsIds");
         Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         //pobranie referencji do bazy
@@ -50,9 +49,9 @@ public class AddForWhatActivity extends AppCompatActivity {
                         }
                         db.close();
 
-                        Intent newIntent = new Intent(AddForWhatActivity.this, AddForWhatListActivity.class);
-                        newIntent.putIntegerArrayListExtra("personsIds", personsIds);
-                        startActivity(newIntent);
+                        Intent intent = new Intent(AddForWhatActivity.this, AddForWhatListActivity.class);
+                        intent.putIntegerArrayListExtra("personsIds", personsIds);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(AddForWhatActivity.this, "Wpisz za co płacicie", Toast.LENGTH_LONG).show();
                     }

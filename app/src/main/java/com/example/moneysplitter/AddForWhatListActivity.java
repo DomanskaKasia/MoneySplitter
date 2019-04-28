@@ -27,8 +27,7 @@ public class AddForWhatListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_for_what_list);
 
-        Intent intent = getIntent();
-        final ArrayList<Integer> personsIds = intent.getIntegerArrayListExtra("personsIds");
+        final ArrayList<Integer> personsIds = getIntent().getIntegerArrayListExtra("personsIds");
         Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         forWhatNames = (ListView) findViewById(R.id.for_what_names);
@@ -81,17 +80,16 @@ public class AddForWhatListActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.add_for_what_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(AddForWhatListActivity.this, AddForWhatActivity.class);
-                newIntent.putIntegerArrayListExtra("personsIds", personsIds);
-                startActivity(newIntent);
+                Intent intent = new Intent(AddForWhatListActivity.this, AddForWhatActivity.class);
+                intent.putIntegerArrayListExtra("personsIds", personsIds);
+                startActivity(intent);
             }
         });
 
         ((Button) findViewById(R.id.next2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(AddForWhatListActivity.this, MainActivity.class);
-                startActivity(newIntent);
+                startActivity( new Intent(AddForWhatListActivity.this, MainActivity.class) );
             }
         });
 

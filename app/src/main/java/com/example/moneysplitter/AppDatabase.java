@@ -86,16 +86,13 @@ class AppDatabase extends SQLiteOpenHelper {
 
 
 
-    public static void insertMeeting(SQLiteDatabase db, String name, int days) {
+    public static int insertMeeting(SQLiteDatabase db, String name, int days) {
         Log.d(TAG, "insertMeeting: starts");
 
         ContentValues m = new ContentValues();
         m.put(Meeting.Column.NAME, name);
         m.put(Meeting.Column.DAYS, days);
-        db.insert(Meeting.TABLE_NAME, null, m);
-
-        Log.d(TAG, "insertMeeting: added name: " + name + ", days: " + days);
-        Log.d(TAG, "insertMeeting: ends");
+        return (int) db.insert(Meeting.TABLE_NAME, null, m);
     }
 
     private static void uprateMeeting(SQLiteDatabase db, int id, String name, int days) {
@@ -118,12 +115,13 @@ class AppDatabase extends SQLiteOpenHelper {
 
 
 
-    public static void insertPerson(SQLiteDatabase db, String name, int days) {
+    public static void insertPerson(SQLiteDatabase db, String name, int days, int id) {
         Log.d(TAG, "insertPerson: starts");
 
         ContentValues m = new ContentValues();
         m.put(Person.Column.NAME, name);
         m.put(Person.Column.DAYS, days);
+        m.put(Person.Column.ID_MEETING, id);
         db.insert(Person.TABLE_NAME, null, m);
 
         Log.d(TAG, "insertPerson: added name: " + name + ", days: " + days);
@@ -132,16 +130,16 @@ class AppDatabase extends SQLiteOpenHelper {
 
 
 
-    public static void insertForWhat(SQLiteDatabase db, String name, int id_person) {
+    public static void insertForWhat(SQLiteDatabase db, String name, int id) {
         Log.d(TAG, "insertForWhat: starts");
 
         ContentValues m = new ContentValues();
         m.put(ForWhat.Column.NAME, name);
         m.put(ForWhat.Column.CONCERN, true);
-        m.put(ForWhat.Column.ID_PERSON, id_person);
+        m.put(ForWhat.Column.ID_PERSON, id);
         db.insert(ForWhat.TABLE_NAME, null, m);
 
-        Log.d(TAG, "insertForWhat: added name: " + name);
+        Log.d(TAG, "insertForWhat: added _name: " + name + ", concern: true, id_person: " + id);
         Log.d(TAG, "insertForWhat: ends");
     }
 

@@ -21,9 +21,8 @@ public class AddPersonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_person);
 
         //pobranie nazwy spokkania z intencji
-        Intent intent = getIntent();
-        String meetingName = intent.getStringExtra("meetingName");
-        Log.d(TAG, "onCreate: meetingName: " + meetingName);
+        final int meetingId = getIntent().getIntExtra("meetingId", 0);
+        Log.d(TAG, "onCreate: meetingId: " + meetingId);
 
         //pobranie referencji do bazy
         final AppDatabase dbHelper = AppDatabase.getInstance(this);
@@ -45,11 +44,10 @@ public class AddPersonActivity extends AppCompatActivity {
                         days = "1";
 
                     if(!name.equals("")) {
-                        dbHelper.insertPerson(db, name, Integer.parseInt(days));
+                        dbHelper.insertPerson(db, name, Integer.parseInt(days), meetingId);
                         db.close();
 
-                        Intent newIntent = new Intent(AddPersonActivity.this, AddPersonListActivity.class);
-                        startActivity(newIntent);
+                        startActivity( new Intent(AddPersonActivity.this, AddPersonListActivity.class) );
                     } else {
                         Toast.makeText(AddPersonActivity.this, "Wpisz nazwę spotkania", Toast.LENGTH_LONG).show();
                     }

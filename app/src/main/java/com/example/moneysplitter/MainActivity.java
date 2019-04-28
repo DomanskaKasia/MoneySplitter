@@ -69,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.add_meeting_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddMeetingActivity.class);
-                startActivity(intent);
+                startActivity( new Intent(MainActivity.this, AddMeetingActivity.class) );
             }
         });
 
@@ -80,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 String item = parent.getItemAtPosition(position).toString();
                 Log.d(TAG, "onItemClick: " + item);
 
-                Intent intent = new Intent(MainActivity.this, MainListActivity.class);
-                startActivity(intent);
+                startActivity( new Intent(MainActivity.this, MainListActivity.class) );
             }
         });
 

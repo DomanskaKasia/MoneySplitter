@@ -33,7 +33,6 @@ public class AddPersonListActivity extends AppCompatActivity {
 
         //pobranie referencji do bazy
         final AppDatabase dbHelper = AppDatabase.getInstance(this);
-
         try {
             final SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query(Person.TABLE_NAME,
