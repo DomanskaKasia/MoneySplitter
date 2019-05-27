@@ -35,8 +35,8 @@ public class AddPersonListActivity extends AppCompatActivity {
         final AppDatabase dbHelper = AppDatabase.getInstance(this);
         try {
             final SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.query(Person.TABLE_NAME,
-                    new String[] {Person.Column.ID, Person.Column.NAME},
+            Cursor cursor = db.query(PersonTable.TABLE_NAME,
+                    new String[] {PersonTable.Column._ID, PersonTable.Column.NAME},
                     null,
                     null,
                     null,
@@ -47,9 +47,9 @@ public class AddPersonListActivity extends AppCompatActivity {
                 List<String> names = new ArrayList<>();
                 if(cursor.moveToFirst()) {
                     do {
-                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(Person.Column.NAME));
-                        names.add(cursor.getString(cursor.getColumnIndex(Person.Column.NAME)));
-                        personsIds.add(cursor.getInt(cursor.getColumnIndex(Person.Column.ID)));
+                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(PersonTable.Column.NAME));
+                        names.add(cursor.getString(cursor.getColumnIndex(PersonTable.Column.NAME)));
+                        personsIds.add(cursor.getInt(cursor.getColumnIndex(PersonTable.Column._ID)));
                     } while (cursor.moveToNext());
                 }
                 if(!names.isEmpty()) {

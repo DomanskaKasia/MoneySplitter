@@ -42,29 +42,26 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "onCreate: starts");
 
         String sql;
-        sql = "CREATE TABLE " + Meeting.TABLE_NAME + " (" +
-                Meeting.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                Meeting.Column.NAME + " TEXT NOT NULL, " +
-                Meeting.Column.DAYS + " INTEGER NOT NULL);";
-        Log.d(TAG, sql);
-        db.execSQL(sql);
-        insertMeeting(db, "Majowy 2018", 5);
-        insertMeeting(db, "Sylwester 2018/19", 3);
-        insertMeeting(db, "Lutowy 2019", 4);
-
-        sql = "CREATE TABLE " + Person.TABLE_NAME + " (" +
-                Person.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                Person.Column.NAME + " TEXT NOT NULL, " +
-                Person.Column.DAYS + " INTEGER NOT NULL, " +
-                Person.Column.ID_MEETING + " INTEGER);";
+        sql = "CREATE TABLE " + MeetingTable.TABLE_NAME + " (" +
+                MeetingTable.Column._ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                MeetingTable.Column.NAME + " TEXT NOT NULL, " +
+                MeetingTable.Column.DAYS + " INTEGER NOT NULL);";
         Log.d(TAG, sql);
         db.execSQL(sql);
 
-        sql = "CREATE TABLE " + ForWhat.TABLE_NAME + " (" +
-                ForWhat.Column.ID + " INTEGER PRIMARY KEY NOT NULL, " +
-                ForWhat.Column.NAME + " TEXT NOT NULL, " +
-                ForWhat.Column.CONCERN + " INTEGER NOT NULL, " +
-                ForWhat.Column.ID_PERSON + " INTEGER NOT NULL);";
+        sql = "CREATE TABLE " + PersonTable.TABLE_NAME + " (" +
+                PersonTable.Column._ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                PersonTable.Column.NAME + " TEXT NOT NULL, " +
+                PersonTable.Column.DAYS + " INTEGER NOT NULL, " +
+                PersonTable.Column.ID_MEETING + " INTEGER);";
+        Log.d(TAG, sql);
+        db.execSQL(sql);
+
+        sql = "CREATE TABLE " + ForWhatTable.TABLE_NAME + " (" +
+                ForWhatTable.Column._ID + " INTEGER PRIMARY KEY NOT NULL, " +
+                ForWhatTable.Column.NAME + " TEXT NOT NULL, " +
+                ForWhatTable.Column.CONCERN + " INTEGER NOT NULL, " +
+                ForWhatTable.Column.ID_PERSON + " INTEGER NOT NULL);";
         Log.d(TAG, sql);
         db.execSQL(sql);
 
@@ -74,44 +71,26 @@ class AppDatabase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade: starts");
-
+        switch (oldVersion) {
+            case 1:
+                break;
+            default:
+                throw new IllegalStateException("Unknown new version " + newVersion);
+        }
         Log.d(TAG, "onUpgrade: ends");
     }
 
-    private void updateDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, "updateDatabase: starts");
-
-        Log.d(TAG, "updateDatabase: ends");
-    }
 
 
+//    public static int insertMeeting(SQLiteDatabase db, String name, int days) {
+//        Log.d(TAG, "insertMeeting: starts");
+//
+//        ContentValues m = new ContentValues();
+//        m.put(MeetingTable.Column.NAME, name);
+//        m.put(MeetingTable.Column.DAYS, days);
+//        return (int) db.insert(MeetingTable.TABLE_NAME, null, m);
+//    }
 
-    public static int insertMeeting(SQLiteDatabase db, String name, int days) {
-        Log.d(TAG, "insertMeeting: starts");
-
-        ContentValues m = new ContentValues();
-        m.put(Meeting.Column.NAME, name);
-        m.put(Meeting.Column.DAYS, days);
-        return (int) db.insert(Meeting.TABLE_NAME, null, m);
-    }
-
-    private static void uprateMeeting(SQLiteDatabase db, int id, String name, int days) {
-        Log.d(TAG, "uprateMeetingName: starts");
-
-        ContentValues m = new ContentValues();
-        m.put(Meeting.Column.NAME, name);
-        m.put(Meeting.Column.DAYS, days);
-
-        db.update(Meeting.TABLE_NAME, m, "_id = ?", new String[] {Integer.toString(id)});
-    }
-
-    private static void deleteMeeting(SQLiteDatabase db, int id) {
-        Log.d(TAG, "deleteMeetingRow: starts");
-
-        db.delete(Meeting.TABLE_NAME, "_id = ?", new String[] {Integer.toString(id)});
-
-        Log.d(TAG, "deleteMeetingRow: ends");
-    }
 
 
 
@@ -119,10 +98,10 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "insertPerson: starts");
 
         ContentValues m = new ContentValues();
-        m.put(Person.Column.NAME, name);
-        m.put(Person.Column.DAYS, days);
-        m.put(Person.Column.ID_MEETING, id);
-        db.insert(Person.TABLE_NAME, null, m);
+        m.put(PersonTable.Column.NAME, name);
+        m.put(PersonTable.Column.DAYS, days);
+        m.put(PersonTable.Column.ID_MEETING, id);
+        db.insert(PersonTable.TABLE_NAME, null, m);
 
         Log.d(TAG, "insertPerson: added name: " + name + ", days: " + days);
         Log.d(TAG, "insertPerson: ends");
@@ -134,10 +113,10 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "insertForWhat: starts");
 
         ContentValues m = new ContentValues();
-        m.put(ForWhat.Column.NAME, name);
-        m.put(ForWhat.Column.CONCERN, true);
-        m.put(ForWhat.Column.ID_PERSON, id);
-        db.insert(ForWhat.TABLE_NAME, null, m);
+        m.put(ForWhatTable.Column.NAME, name);
+        m.put(ForWhatTable.Column.CONCERN, true);
+        m.put(ForWhatTable.Column.ID_PERSON, id);
+        db.insert(ForWhatTable.TABLE_NAME, null, m);
 
         Log.d(TAG, "insertForWhat: added _name: " + name + ", concern: true, id_person: " + id);
         Log.d(TAG, "insertForWhat: ends");
@@ -149,8 +128,8 @@ class AppDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "onCreate: starts");
 
         String sql;
-        sql = "CREATE VIEW IF NOT EXISTS ForWhatNames AS SELECT DISTINCT " + ForWhat.Column.NAME +
-                " FROM " + ForWhat.TABLE_NAME + ";";
+        sql = "CREATE VIEW IF NOT EXISTS ForWhatNames AS SELECT DISTINCT " + ForWhatTable.Column.NAME +
+                " FROM " + ForWhatTable.TABLE_NAME + ";";
         Log.d(TAG, sql);
         db.execSQL(sql);
 

@@ -1,5 +1,6 @@
 package com.example.moneysplitter;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,42 +25,44 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         //pobranie referencji do bazy
         final AppDatabase dbHelper = AppDatabase.getInstance(this);
-        try {
-            final SQLiteDatabase db = dbHelper.getWritableDatabase();
+        final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-            ((Button) findViewById(R.id.add_btn)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "onClick: starts");
-                    TextView nameView = (TextView) findViewById(R.id.meeting_name);
-                    TextView daysView = (TextView) findViewById(R.id.meeting_days);
+        //Adding meeting to the list in MainActivity
+        ((Button) findViewById(R.id.add_btn)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: starts");
+                TextView nameView = (TextView) findViewById(R.id.meeting_name);
+                TextView daysView = (TextView) findViewById(R.id.meeting_days);
 
-                    String name = String.valueOf(nameView.getText());
-                    String days = String.valueOf(daysView.getText());
+                String name = String.valueOf(nameView.getText());
+                String days = String.valueOf(daysView.getText());
 
-                    if(days.equals(""))
-                        days = "1";
-
-                    if(!name.equals("")) {
-                        int meetingId = dbHelper.insertMeeting(db, name, Integer.parseInt(days));
-                        db.close();
-                        Log.d(TAG, "onClick: added _id: " + meetingId + " name: " + name + ", days: " + days);
-
-                        Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
-                        intent.putExtra("meetingId", meetingId);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(AddMeetingActivity.this, "Wpisz nazwę spotkania", Toast.LENGTH_LONG).show();
-                    }
-
-                    Log.d(TAG, "onClick: ends");
+                if (name.length() == 0 || name.trim().equals("")) {
+                    Toast.makeText(AddMeetingActivity.this, R.string.name_validation_info, Toast.LENGTH_LONG).show();
+                    return;
                 }
-            });
 
-        } catch(SQLException e) {
-            Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
-        }
+                if (days.equals("")) {
+                    days = "1";
+                }
+
+                ContentValues values = new ContentValues();
+                values.put(MeetingTable.Column.NAME, name);
+                values.put(MeetingTable.Column.DAYS, days);
+
+                getContentResolver().insert(MeetingTable.CONTENT_URI, values);
+                Log.d(TAG, "onClick: added name - " + name + ", days - " + days);
+
+                Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
+//                    intent.putExtra("meetingId", meetingId);
+                startActivity(intent);
+
+                Log.d(TAG, "onClick: ends");
+            }
+        });
 
         Log.d(TAG, "onCreate: ends");
     }
+
 }

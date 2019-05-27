@@ -44,7 +44,7 @@ public class AddForWhatListActivity extends AppCompatActivity {
 
             db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query("ForWhatNames",
-                    new String[] {ForWhat.Column.NAME},
+                    new String[] {ForWhatTable.Column.NAME},
                     null,
                     null,
                     null,
@@ -55,8 +55,8 @@ public class AddForWhatListActivity extends AppCompatActivity {
                 List<String> names = new ArrayList<>();
                 if(cursor.moveToFirst()) {
                     do {
-                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(ForWhat.Column.NAME));
-                        names.add(cursor.getString(cursor.getColumnIndex(ForWhat.Column.NAME)));
+                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(ForWhatTable.Column.NAME));
+                        names.add(cursor.getString(cursor.getColumnIndex(ForWhatTable.Column.NAME)));
                     } while (cursor.moveToNext());
                 }
                 if(!names.isEmpty()) {

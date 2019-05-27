@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             final SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.query(Meeting.TABLE_NAME,
-                    new String[] {Meeting.Column.NAME},
+            Cursor cursor = db.query(MeetingTable.TABLE_NAME,
+                    new String[] {MeetingTable.Column.NAME},
                     null,
                     null,
                     null,
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 List<String> names = new ArrayList<>();
                 if(cursor.moveToFirst()) {
                     do {
-                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(Meeting.Column.NAME));
-                        names.add(cursor.getString(cursor.getColumnIndex(Meeting.Column.NAME)));
+                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(MeetingTable.Column.NAME));
+                        names.add(cursor.getString(cursor.getColumnIndex(MeetingTable.Column.NAME)));
                     } while (cursor.moveToNext());
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(
