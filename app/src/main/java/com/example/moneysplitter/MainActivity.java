@@ -10,9 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -66,13 +64,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
 
-        ((Button) findViewById(R.id.add_meeting_btn)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity( new Intent(MainActivity.this, AddMeetingActivity.class) );
-            }
-        });
-
+        //Clicking on item in the list
         meetingNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onItemClick: " + item);
 
                 startActivity( new Intent(MainActivity.this, MainListActivity.class) );
+            }
+        });
+
+        //Clicking on floating button
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: floating action button clicked");
+                startActivity(new Intent(MainActivity.this, AddMeetingActivity.class));
             }
         });
 
