@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         meetingNames = (ListView) findViewById(R.id.meeting_names);
 
-        //pobranie referencji do bazy
+        //download reference to the database
         final AppDatabase dbHelper = AppDatabase.getInstance(this);
 
         try {

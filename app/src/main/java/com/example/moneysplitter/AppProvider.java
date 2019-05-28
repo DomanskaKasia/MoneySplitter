@@ -19,12 +19,16 @@ public class AppProvider extends ContentProvider {
 
     private static final int MEETINGS = 100;
     private static final int MEETINGS_ID = 101;
+    private static final int PERSONS = 200;
+    private static final int PERSONS_ID = 201;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         uriMatcher.addURI(CONTENT_AUTHORITY, MeetingTable.TABLE_NAME, MEETINGS);
         uriMatcher.addURI(CONTENT_AUTHORITY, MeetingTable.TABLE_NAME + "/#", MEETINGS_ID);
+        uriMatcher.addURI(CONTENT_AUTHORITY, PersonTable.TABLE_NAME, PERSONS);
+        uriMatcher.addURI(CONTENT_AUTHORITY, PersonTable.TABLE_NAME + "/#", PERSONS_ID);
     }
 
     @Override
@@ -50,6 +54,14 @@ public class AppProvider extends ContentProvider {
                 queryBuilder.setTables(MeetingTable.TABLE_NAME);
                 long meetingId = MeetingTable.getMeetingId(uri);
                 queryBuilder.appendWhere(MeetingTable.Column._ID + " = " + meetingId);
+                break;
+            case PERSONS:
+                queryBuilder.setTables(PersonTable.TABLE_NAME);
+                break;
+            case PERSONS_ID:
+                queryBuilder.setTables(PersonTable.TABLE_NAME);
+                long personId = PersonTable.getPersonsId(uri);
+                queryBuilder.appendWhere(PersonTable.Column._ID + " = " + personId);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown uri: " + uri);

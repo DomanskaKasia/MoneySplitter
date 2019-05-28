@@ -54,7 +54,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 getContentResolver().insert(MeetingTable.CONTENT_URI, values);
                 Log.d(TAG, "onClick: added name - " + name + ", days - " + days);
 
-                Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
+                Intent intent = new Intent(AddMeetingActivity.this, MainActivity.class);
 //                    intent.putExtra("meetingId", meetingId);
                 startActivity(intent);
 
