@@ -8,6 +8,11 @@
     <string name="title_activity_add_meeting">Dodaj nowe spotkanie</string>
     <string name="meeting_name">Nazwa spotkania</string>
     <string name="meeting_days">Ilość dni</string>
+    <string name="no_meeting_list_info">Żeby dodać spotkanie kliknij (+) i\n
+        1. wprowadź dane spotkania\n
+        2. stwórz listę osoób, z którymi będziesz się rozliczać\n
+        3. stwórz listę rzeczy, za które będziecie płacić\n\n
+        Miłego zjazdu ;)</string>
     <string name="add_btn">Dodaj</string>
 
     <!--add_person-->

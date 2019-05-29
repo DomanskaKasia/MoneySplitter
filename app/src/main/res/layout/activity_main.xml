@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/no_meeting_list_info"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:visibility="gone"/>
+
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton

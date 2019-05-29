@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -62,19 +63,25 @@ public class MainActivity extends AppCompatActivity {
         meetingNames = (ListView) findViewById(R.id.meeting_names);
 
         if(cursor != null) {
-            List<String> names = new ArrayList<>();
-            if(cursor.moveToFirst()) {
-                do {
-                    Log.d(TAG, "onCreate: " + cursor.getColumnIndex(MeetingTable.Column.NAME));
-                    names.add(cursor.getString(cursor.getColumnIndex(MeetingTable.Column.NAME)));
-                } while (cursor.moveToNext());
+            if(cursor.getCount() > 0) {
+                List<String> names = new ArrayList<>();
+                if (cursor.moveToFirst()) {
+                    do {
+                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(MeetingTable.Column.NAME));
+                        names.add(cursor.getString(cursor.getColumnIndex(MeetingTable.Column.NAME)));
+                    } while (cursor.moveToNext());
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        MainActivity.this,
+                        R.layout.add_meeting_detail,
+                        R.id.meeting_name,
+                        names);
+                meetingNames.setAdapter(adapter);
+            } else {
+                TextView noMeetingListMessage = (TextView) findViewById(R.id.no_meeting_list_info);
+                noMeetingListMessage.setText(R.string.no_meeting_list_info);
+                noMeetingListMessage.setVisibility(View.VISIBLE);
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    MainActivity.this,
-                    R.layout.add_meeting_detail,
-                    R.id.meeting_name,
-                    names);
-            meetingNames.setAdapter(adapter);
         } else {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
