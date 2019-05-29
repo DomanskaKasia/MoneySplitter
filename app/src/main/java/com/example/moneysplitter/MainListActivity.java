@@ -19,7 +19,7 @@ import android.view.View;
 import java.security.InvalidParameterException;
 
 public class MainListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = "MainListActivity";
+    private static final String TAG = "MainListActivity";//todo wyśletlać tylko osoby przypisane do spotkania
 
     public static final int LOADER_ID = 0;
 

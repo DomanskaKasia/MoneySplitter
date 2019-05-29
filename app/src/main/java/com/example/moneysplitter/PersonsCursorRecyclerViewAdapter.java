@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class PersonsCursorRecyclerViewAdapter extends RecyclerView.Adapter<PersonsCursorRecyclerViewAdapter.PersonViewHolder> {
     private static final String TAG = "MainListCursorRecyclerV";
-    private Cursor cursor;
+    private Cursor cursor;//todo powtarzające się imiona
 
     public PersonsCursorRecyclerViewAdapter(Cursor cursor) {
         Log.d(TAG, "MainListCursorRecyclerViewAdapter: constructor called");

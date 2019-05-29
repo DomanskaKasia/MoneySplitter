@@ -18,7 +18,7 @@ public class AddPersonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_person);
+        setContentView(R.layout.activity_add_person);//todo sprawdzanie czy ilość dni nie jest większa od ilości dni spotkania
 
         //pobranie nazwy spokkania z intencji
         final int meetingId = getIntent().getIntExtra("meetingId", 0);
