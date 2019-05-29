@@ -49,7 +49,7 @@ public class PersonsCursorRecyclerViewAdapter extends RecyclerView.Adapter<Perso
         Log.d(TAG, "onBindViewHolder: starts");
 
         if(cursor == null || cursor.getCount() == 0) {
-            holder.name.setText("Nie dodałeś jeszcze żadnej osoby, aby to zrobić, kliknij w menu.");
+            holder.name.setText(R.string.no_persons_info);
             holder.days.setVisibility(View.GONE);
             holder.value.setVisibility(View.GONE);
         } else {

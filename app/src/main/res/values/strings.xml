@@ -30,5 +30,6 @@
     <string name="title_activity_main_list">MainListActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="name_validation_info">Wpisz nazwę spotkania</string>
+    <string name="no_persons_info">Nie dodałeś jeszcze żadnej osoby, aby to zrobić, kliknij w menu.</string>
 
 </resources>

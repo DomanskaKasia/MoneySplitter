@@ -27,6 +27,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        showMeetingsList();
+
+        //Clicking on item in the list
+        meetingNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "onItemClick: " + item);
+
+                startActivity( new Intent(MainActivity.this, MainListActivity.class) );
+            }
+        });
+
+        //Clicking on floating button
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: floating action button clicked");
+                startActivity(new Intent(MainActivity.this, AddMeetingActivity.class));
+            }
+        });
+
+        Log.d(TAG, "onCreate: ends");
+    }
+
+    private void showMeetingsList() {
         meetingNames = (ListView) findViewById(R.id.meeting_names);
 
         //download reference to the database
@@ -63,27 +89,5 @@ public class MainActivity extends AppCompatActivity {
         } catch(SQLException e) {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
-
-        //Clicking on item in the list
-        meetingNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Log.d(TAG, "onItemClick: " + item);
-
-                startActivity( new Intent(MainActivity.this, MainListActivity.class) );
-            }
-        });
-
-        //Clicking on floating button
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: floating action button clicked");
-                startActivity(new Intent(MainActivity.this, AddMeetingActivity.class));
-            }
-        });
-
-        Log.d(TAG, "onCreate: ends");
     }
 }

@@ -33,22 +33,7 @@ public class MainListActivity extends AppCompatActivity implements LoaderManager
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String[] projections = {PersonTable.Column._ID,
-                PersonTable.Column.NAME,
-                PersonTable.Column.DAYS};
-
-        Cursor cursor = getContentResolver().query(PersonTable.CONTENT_URI,
-                projections,
-                null,
-                null,
-                PersonTable.Column._ID + " DESC");
-
-        recyclerView = (RecyclerView) findViewById(R.id.main_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PersonsCursorRecyclerViewAdapter(cursor);
-        recyclerView.setAdapter(adapter);
-
-        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
+        showPersonsList();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -105,5 +90,24 @@ public class MainListActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    private void showPersonsList() {
+        String[] projections = {PersonTable.Column._ID,
+                PersonTable.Column.NAME,
+                PersonTable.Column.DAYS};
+
+        Cursor cursor = getContentResolver().query(PersonTable.CONTENT_URI,
+                projections,
+                null,
+                null,
+                PersonTable.Column._ID + " DESC");
+
+        recyclerView = (RecyclerView) findViewById(R.id.main_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new PersonsCursorRecyclerViewAdapter(cursor);
+        recyclerView.setAdapter(adapter);
+
+        LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
     }
 }

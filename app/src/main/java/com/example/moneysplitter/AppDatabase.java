@@ -82,18 +82,6 @@ class AppDatabase extends SQLiteOpenHelper {
 
 
 
-//    public static int insertMeeting(SQLiteDatabase db, String name, int days) {
-//        Log.d(TAG, "insertMeeting: starts");
-//
-//        ContentValues m = new ContentValues();
-//        m.put(MeetingTable.Column.NAME, name);
-//        m.put(MeetingTable.Column.DAYS, days);
-//        return (int) db.insert(MeetingTable.TABLE_NAME, null, m);
-//    }
-
-
-
-
     public static void insertPerson(SQLiteDatabase db, String name, int days, int id) {
         Log.d(TAG, "insertPerson: starts");
 
