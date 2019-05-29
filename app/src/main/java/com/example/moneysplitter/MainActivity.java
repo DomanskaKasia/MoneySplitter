@@ -2,8 +2,6 @@ package com.example.moneysplitter;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,42 +50,34 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: ends");
     }
 
+
+
     private void showMeetingsList() {
+        Cursor cursor = getContentResolver().query(MeetingTable.CONTENT_URI,
+                                                new String[] {MeetingTable.Column.NAME},
+                                                null,
+                                                null,
+                                                MeetingTable.Column._ID + " DESC");
+
         meetingNames = (ListView) findViewById(R.id.meeting_names);
 
-        //download reference to the database
-        final AppDatabase dbHelper = AppDatabase.getInstance(this);
-
-        try {
-            final SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.query(MeetingTable.TABLE_NAME,
-                    new String[] {MeetingTable.Column.NAME},
-                    null,
-                    null,
-                    null,
-                    null,
-                    null);
-
-            if(cursor != null) {
-                List<String> names = new ArrayList<>();
-                if(cursor.moveToFirst()) {
-                    do {
-                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(MeetingTable.Column.NAME));
-                        names.add(cursor.getString(cursor.getColumnIndex(MeetingTable.Column.NAME)));
-                    } while (cursor.moveToNext());
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                        MainActivity.this,
-                        R.layout.add_meeting_detail,
-                        R.id.meeting_name,
-                        names);
-                meetingNames.setAdapter(adapter);
+        if(cursor != null) {
+            List<String> names = new ArrayList<>();
+            if(cursor.moveToFirst()) {
+                do {
+                    Log.d(TAG, "onCreate: " + cursor.getColumnIndex(MeetingTable.Column.NAME));
+                    names.add(cursor.getString(cursor.getColumnIndex(MeetingTable.Column.NAME)));
+                } while (cursor.moveToNext());
             }
-            cursor.close();
-            db.close();
-
-        } catch(SQLException e) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    MainActivity.this,
+                    R.layout.add_meeting_detail,
+                    R.id.meeting_name,
+                    names);
+            meetingNames.setAdapter(adapter);
+        } else {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
+        cursor.close();
     }
 }
