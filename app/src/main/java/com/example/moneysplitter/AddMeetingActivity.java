@@ -35,8 +35,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                 if(meetingId != 0) {
                     intent.putExtra("meetingId", meetingId);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(AddMeetingActivity.this, R.string.error_info, Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(AddMeetingActivity.this, R.string.error_info, Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onClick: ends");
             }

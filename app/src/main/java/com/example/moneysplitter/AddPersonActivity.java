@@ -1,5 +1,6 @@
 package com.example.moneysplitter;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,44 +22,40 @@ public class AddPersonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_person);//todo sprawdzanie czy ilość dni nie jest większa od ilości dni spotkania
 
         //pobranie nazwy spokkania z intencji
-        final int meetingId = getIntent().getIntExtra("meetingId", 0);
+        final long meetingId = getIntent().getLongExtra("meetingId", 0);
         Log.d(TAG, "onCreate: meetingId: " + meetingId);
 
-        //pobranie referencji do bazy
-        final AppDatabase dbHelper = AppDatabase.getInstance(this);
-        try {
-            final SQLiteDatabase db = dbHelper.getWritableDatabase();
+       //dodanie osoby do bazy
+        ((Button) findViewById(R.id.add_btn2)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: starts");
+                TextView nameView = (TextView) findViewById(R.id.person_name);
+                TextView daysView = (TextView) findViewById(R.id.person_days);
 
-            //dodanie osoby do bazy
-            ((Button) findViewById(R.id.add_btn2)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "onClick: starts");
-                    TextView nameView = (TextView) findViewById(R.id.person_name);
-                    TextView daysView = (TextView) findViewById(R.id.person_days);
+                String name = String.valueOf(nameView.getText());
+                String days = String.valueOf(daysView.getText());
 
-                    String name = String.valueOf(nameView.getText());
-                    String days = String.valueOf(daysView.getText());
+                if(days.equals(""))
+                    days = "1";
 
-                    if(days.equals(""))
-                        days = "1";
-
-                    if(!name.equals("")) {
-                        dbHelper.insertPerson(db, name, Integer.parseInt(days), meetingId);
-                        db.close();
-
-                        startActivity( new Intent(AddPersonActivity.this, AddPersonListActivity.class) );
-                    } else {
-                        Toast.makeText(AddPersonActivity.this, "Wpisz nazwę spotkania", Toast.LENGTH_LONG).show();
-                    }
-//
-                    Log.d(TAG, "onClick: ends");
+                if (name.length() == 0 || name.trim().equals("")) {
+                    Toast.makeText(AddPersonActivity.this, "Wpisz nazwę spotkania", Toast.LENGTH_LONG).show();
+                    return;
                 }
-            });
 
-        } catch(SQLException e) {
-            Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
-        }
+                ContentValues values = new ContentValues();
+                values.put(PersonTable.Column.NAME, name);
+                values.put(PersonTable.Column.DAYS, days);
+                values.put(PersonTable.Column.ID_MEETING, meetingId);
+
+                getContentResolver().insert(PersonTable.CONTENT_URI, values);
+
+                startActivity( new Intent(AddPersonActivity.this, AddPersonListActivity.class) );
+
+                Log.d(TAG, "onClick: ends");
+            }
+        });
 
         Log.d(TAG, "onCreate: ends");
     }

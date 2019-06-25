@@ -106,13 +106,21 @@ public class AppProvider extends ContentProvider {
         long recordId;
 
         if(match == MEETINGS) {
-                db = dbHelper.getWritableDatabase();
-                recordId = db.insert(MeetingTable.TABLE_NAME, null, values);
-                if(recordId >= 0) {
-                    newUri = MeetingTable.buildUri(recordId);
-                } else {
-                    throw new android.database.SQLException("Failed to insert into " + uri.toString());
-                }
+            db = dbHelper.getWritableDatabase();
+            recordId = db.insert(MeetingTable.TABLE_NAME, null, values);
+            if(recordId >= 0) {
+                newUri = MeetingTable.buildUri(recordId);
+            } else {
+                throw new android.database.SQLException("Failed to insert into " + uri.toString());
+            }
+        } else if(match == PERSONS) {
+            db = dbHelper.getWritableDatabase();
+            recordId = db.insert(PersonTable.TABLE_NAME, null, values);
+            if(recordId >= 0) {
+                newUri = PersonTable.buildUri(recordId);
+            } else {
+                throw new android.database.SQLException("Failed to insert into " + uri.toString());
+            }
         } else {
             throw new IllegalArgumentException("Unknown uri " + uri);
         }
