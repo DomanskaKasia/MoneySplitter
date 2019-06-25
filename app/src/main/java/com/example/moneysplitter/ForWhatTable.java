@@ -1,7 +1,7 @@
 package com.example.moneysplitter;
 
 public class ForWhatTable {
-    static final String TABLE_NAME = "ForWhat";
+    public static final String TABLE_NAME = "ForWhat";
 
     public static class Column {
         public static final String _ID = "_id";

@@ -3,7 +3,6 @@ package com.example.moneysplitter;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,15 +15,12 @@ public class AddMeetingActivity extends AppCompatActivity {
     private static final String TAG = "AddMeetingActivity";
 
     private String name;
+    private String days;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
-
-        //pobranie referencji do bazy
-        final AppDatabase dbHelper = AppDatabase.getInstance(this);
-        final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         //Adding meeting to the list in MainActivity
         ((Button) findViewById(R.id.add_btn)).setOnClickListener(new View.OnClickListener() {
@@ -36,8 +32,11 @@ public class AddMeetingActivity extends AppCompatActivity {
                 long meetingId = getAddedMeetingId();
 
                 Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
-                intent.putExtra("meetingId", meetingId);
-                startActivity(intent);
+                if(meetingId != 0) {
+                    intent.putExtra("meetingId", meetingId);
+                    startActivity(intent);
+                }
+                Toast.makeText(AddMeetingActivity.this, R.string.error_info, Toast.LENGTH_SHORT).show();
 
                 Log.d(TAG, "onClick: ends");
             }
@@ -53,7 +52,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         TextView daysView = (TextView) findViewById(R.id.meeting_days);
 
         name = String.valueOf(nameView.getText());
-        String days = String.valueOf(daysView.getText());
+        days = String.valueOf(daysView.getText());
 
         if (name.length() == 0 || name.trim().equals("")) {
             Toast.makeText(AddMeetingActivity.this, R.string.name_validation_info, Toast.LENGTH_LONG).show();
@@ -81,7 +80,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         String meetingId = new String();
 
         if(cursor != null && cursor.moveToFirst()) {
-            return Long.parseLong(cursor.getString(cursor.getColumnIndex(MeetingTable.Column._ID)).toString());
+            return Long.parseLong(cursor.getString(0));
         }
         return 0;
     }

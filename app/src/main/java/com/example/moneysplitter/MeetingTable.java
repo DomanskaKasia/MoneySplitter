@@ -7,7 +7,7 @@ import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY;
 import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY_URI;
 
 public class MeetingTable {
-    static final String TABLE_NAME = "Meetings";
+    public static final String TABLE_NAME = "Meetings";
 
     public static class Column {
         public static final String _ID = "_id";

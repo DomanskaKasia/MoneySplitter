@@ -14,6 +14,7 @@
         3. stwórz listę rzeczy, za które będziecie płacić\n\n
         Miłego zjazdu ;)</string>
     <string name="add_btn">Dodaj</string>
+    <string name="error_info">"Upsss"</string>
 
     <!--add_person-->
     <string name="title_activity_add_person">Dodaj nową osobę</string>
