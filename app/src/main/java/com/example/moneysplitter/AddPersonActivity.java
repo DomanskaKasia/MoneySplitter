@@ -28,17 +28,18 @@ public class AddPersonActivity extends AppCompatActivity {
         //get value from intent
         meetingId = getIntent().getIntExtra("meetingId", 0);
 
-       //dodanie osoby do bazy
+       //click on add button
         ((Button) findViewById(R.id.add_btn2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: starts");
 
-                addMeetingtoDatabase();
+                addMeetingToDatabase();
                 int personId = getAddedPersonId();
 
                 if(personId != 0) {
                     Intent intent = new Intent(AddPersonActivity.this, AddPersonListActivity.class);
+                    intent.putExtra("meetingId", meetingId);
                     intent.putExtra("personId", personId);
                     startActivity(intent);
                 } else {
@@ -54,7 +55,7 @@ public class AddPersonActivity extends AppCompatActivity {
 
 
 
-    private void addMeetingtoDatabase() {
+    private void addMeetingToDatabase() {
         TextView nameView = (TextView) findViewById(R.id.person_name);
         TextView daysView = (TextView) findViewById(R.id.person_days);
 

@@ -33,7 +33,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
                 if(meetingId != 0) {
-                    System.out.println("aaaaaaaaa" + meetingId );
                     intent.putExtra("meetingId", meetingId);
                     startActivity(intent);
                 } else {
@@ -81,7 +80,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                                                     null);
 
         if(cursor != null && cursor.moveToFirst()) {
-            System.out.println("aaaaaaaaa" + Integer.parseInt(cursor.getString(0)) );
             return Integer.parseInt(cursor.getString(0));
         }
         return 0;

@@ -2,8 +2,6 @@ package com.example.moneysplitter;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +17,7 @@ import java.util.List;
 public class AddPersonListActivity extends AppCompatActivity {
     private static final String TAG = "AddPersonListActivity";
 
-    //get value from intent
+    private int meetingId;
     private int personId;
 
     private ListView personsNames;
@@ -30,49 +28,42 @@ public class AddPersonListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_person_list);
 
-        //get value from intent
+        //get values from intent
+        meetingId = getIntent().getIntExtra("meetingId", 0);
         personId = getIntent().getIntExtra("personId", 0);
 
         personsNames = (ListView) findViewById(R.id.persons_names);
 
         final ArrayList<Integer> personsIds = new ArrayList<>();
 
-        //pobranie referencji do bazy
-        final AppDatabase dbHelper = AppDatabase.getInstance(this);
-        try {
-            final SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.query(PersonTable.TABLE_NAME,
-                    new String[] {PersonTable.Column._ID, PersonTable.Column.NAME},
-                    null,
-                    null,
-                    null,
-                    null,
-                    null);
+        Cursor cursor = getContentResolver().query(PersonTable.CONTENT_URI,
+                new String[] {PersonTable.Column._ID, PersonTable.Column.NAME},
+                PersonTable.Column.ID_MEETING + " = ?",
+                new String[] {String.valueOf(meetingId)},
+                null,
+                null);
 
-            if(cursor != null) {
-                List<String> names = new ArrayList<>();
-                if(cursor.moveToFirst()) {
-                    do {
-                        Log.d(TAG, "onCreate: " + cursor.getColumnIndex(PersonTable.Column.NAME));
-                        names.add(cursor.getString(cursor.getColumnIndex(PersonTable.Column.NAME)));
-                        personsIds.add(cursor.getInt(cursor.getColumnIndex(PersonTable.Column._ID)));
-                    } while (cursor.moveToNext());
-                }
-                if(!names.isEmpty()) {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            AddPersonListActivity.this,
-                            R.layout.add_person_list_detail,
-                            R.id.person_name_list,
-                            names);
-                    personsNames.setAdapter(adapter);
-                } else {
-                    Log.d(TAG, "onCreate: table is empty");
-                }
+        if(cursor != null) {
+            List<String> names = new ArrayList<>();
+
+            if(cursor.moveToFirst()) {
+                do {
+                    Log.d(TAG, "onCreate: " + cursor.getColumnIndex(PersonTable.Column.NAME));
+                    names.add(cursor.getString(cursor.getColumnIndex(PersonTable.Column.NAME)));
+                    personsIds.add(cursor.getInt(cursor.getColumnIndex(PersonTable.Column._ID)));
+                } while (cursor.moveToNext());
             }
-            cursor.close();
-            db.close();
-
-        } catch(SQLException e) {
+            if(!names.isEmpty()) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        AddPersonListActivity.this,
+                        R.layout.add_person_list_detail,
+                        R.id.person_name_list,
+                        names);
+                personsNames.setAdapter(adapter);
+            } else {
+                Log.d(TAG, "onCreate: table is empty");
+            }
+        } else {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
 
@@ -80,6 +71,7 @@ public class AddPersonListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddPersonListActivity.this, AddPersonActivity.class);
+                intent.putExtra("meetingId", meetingId);
                 startActivity(intent);
             }
         });
