@@ -28,11 +28,12 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: starts");
 
-                addMeeting();
-                long meetingId = getAddedMeetingId();
+                addMeetingtoDatabase();
+                int meetingId = getAddedMeetingId();
 
                 Intent intent = new Intent(AddMeetingActivity.this, AddPersonActivity.class);
                 if(meetingId != 0) {
+                    System.out.println("aaaaaaaaa" + meetingId );
                     intent.putExtra("meetingId", meetingId);
                     startActivity(intent);
                 } else {
@@ -48,7 +49,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
 
-    private void addMeeting() {
+    private void addMeetingtoDatabase() {
         TextView nameView = (TextView) findViewById(R.id.meeting_name);
         TextView daysView = (TextView) findViewById(R.id.meeting_days);
 
@@ -72,16 +73,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         Log.d(TAG, "addMeeting: added name - " + name + ", days - " + days);
     }
 
-    private long getAddedMeetingId() {
+    private int getAddedMeetingId() {
         Cursor cursor = getContentResolver().query(MeetingTable.CONTENT_URI,
                                                     new String[] {MeetingTable.Column._ID},
                                                     MeetingTable.Column.NAME + " = ?",
                                                     new String[] {name},
                                                     null);
-        String meetingId = new String();
 
         if(cursor != null && cursor.moveToFirst()) {
-            return Long.parseLong(cursor.getString(0));
+            System.out.println("aaaaaaaaa" + Integer.parseInt(cursor.getString(0)) );
+            return Integer.parseInt(cursor.getString(0));
         }
         return 0;
     }

@@ -19,6 +19,9 @@ import java.util.List;
 public class AddPersonListActivity extends AppCompatActivity {
     private static final String TAG = "AddPersonListActivity";
 
+    //get value from intent
+    private int personId;
+
     private ListView personsNames;
 
     @Override
@@ -26,6 +29,9 @@ public class AddPersonListActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: starts");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_person_list);
+
+        //get value from intent
+        personId = getIntent().getIntExtra("personId", 0);
 
         personsNames = (ListView) findViewById(R.id.persons_names);
 
