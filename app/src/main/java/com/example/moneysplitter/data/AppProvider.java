@@ -84,7 +84,6 @@ public class AppProvider extends ContentProvider {
                                 " INNER JOIN " +
                                 MeetingTable.TABLE_NAME + " ON " +
                                 PersonTable.PrefixColumn.ID_MEETING + " = " + MeetingTable.PrefixColumn._ID );
-//                queryBuilder.appendWhere(MeetingTable.PrefixColumn._ID + " = ?";
                 break;
             default:
                 throw new IllegalArgumentException("Unknown uri: " + uri);

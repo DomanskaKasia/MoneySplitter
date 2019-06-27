@@ -46,12 +46,16 @@ public class AddForWhatListActivity extends AppCompatActivity {
 
             if(cursor != null) {
                 List<String> names = new ArrayList<>();
+                String name;
 
                 //make list of names from joined table
                 if(cursor.moveToFirst()) {
                     do {
                         Log.d(TAG, "onCreate: " + cursor.getColumnIndex(ForWhatTable.Column.NAME));
-                        names.add(cursor.getString(cursor.getColumnIndex(ForWhatTable.Column.NAME)));
+                        name = cursor.getString(cursor.getColumnIndex(ForWhatTable.Column.NAME));
+                        if(!names.contains(name)) {
+                            names.add(name);
+                        }
                     } while (cursor.moveToNext());
                 }
 
