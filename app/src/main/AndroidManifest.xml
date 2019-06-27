@@ -36,7 +36,7 @@
         </activity>
 
         <provider
-            android:name="com.example.moneysplitter.AppProvider"
+            android:name="com.example.moneysplitter.data.AppProvider"
             android:authorities="com.example.moneysplitter.provider"
             android:exported="false"/>
     </application>
