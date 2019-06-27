@@ -20,45 +20,42 @@ import java.util.List;
 public class AddForWhatListActivity extends AppCompatActivity {
     private static final String TAG = "AddForWhatListActivity";
 
+    private int meetingId;
     private ListView forWhatNames;
+    private ArrayList<Integer> personsIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_for_what_list);
 
-        final ArrayList<Integer> personsIds = getIntent().getIntegerArrayListExtra("personsIds");
+        //get values from intent
+        meetingId = getIntent().getIntExtra("meetingId", 0);
+        personsIds = getIntent().getIntegerArrayListExtra("personsIds");
         Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         forWhatNames = (ListView) findViewById(R.id.for_what_names);
 
-        //pobranie referencji do bazy
-//        AppDatabase appDatabase = AppDatabase.getInstance(this);
-        final AppDatabase dbHelper = AppDatabase.getInstance(this);
-
-        try {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-            dbHelper.deleteForWhatNamesView(db);
-            dbHelper.createForWhatNamesView(db);
-
-            db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.query("ForWhatNames",
-                    new String[] {ForWhatTable.Column.NAME},
-                    null,
-                    null,
-                    null,
-                    null,
-                    null);
+        //get cursor of names from joined table
+        Cursor cursor = getContentResolver().query(ForWhatFromMeeting.CONTENT_URI,
+                new String[] {ForWhatTable.PrefixColumn.NAME},
+                MeetingTable.PrefixColumn._ID + " = ?",
+                new String[] {String.valueOf(meetingId)},
+                null,
+                null);
 
             if(cursor != null) {
                 List<String> names = new ArrayList<>();
+
+                //make list of names from joined table
                 if(cursor.moveToFirst()) {
                     do {
                         Log.d(TAG, "onCreate: " + cursor.getColumnIndex(ForWhatTable.Column.NAME));
                         names.add(cursor.getString(cursor.getColumnIndex(ForWhatTable.Column.NAME)));
                     } while (cursor.moveToNext());
                 }
+
+                //show list of names
                 if(!names.isEmpty()) {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                             AddForWhatListActivity.this,
@@ -70,17 +67,12 @@ public class AddForWhatListActivity extends AppCompatActivity {
                     Log.d(TAG, "onCreate: table is empty");
                 }
             }
-            cursor.close();
-            db.close();
-
-        } catch(SQLException e) {
-            Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
-        }
 
         ((Button) findViewById(R.id.add_for_what_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddForWhatListActivity.this, AddForWhatActivity.class);
+                intent.putExtra("meetingId", meetingId);
                 intent.putIntegerArrayListExtra("personsIds", personsIds);
                 startActivity(intent);
             }

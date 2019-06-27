@@ -6,18 +6,8 @@ import android.net.Uri;
 import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY;
 import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY_URI;
 
-public class MeetingTable {
-    public static final String TABLE_NAME = "Meetings";
-
-    public static class Column {
-        public static final String _ID = "_id";
-        public static final String NAME = "Name";
-        public static final String DAYS = "Number_of_days";
-    }
-
-    public static class PrefixColumn {
-        public static final String _ID = TABLE_NAME + "." + MeetingTable.Column._ID;
-    }
+public class ForWhatFromMeeting {
+    public static final String TABLE_NAME = "ForWhatFromMeeting";
 
     public static final Uri CONTENT_URI = Uri.withAppendedPath(CONTENT_AUTHORITY_URI, TABLE_NAME);
 
@@ -28,7 +18,7 @@ public class MeetingTable {
         return ContentUris.withAppendedId(CONTENT_URI, id);
     }
 
-    static long getMeetingId(Uri uri) {
+    static long getForWhatFromMeetingId(Uri uri) {
         return ContentUris.parseId(uri);
     }
 }

@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
 
+import java.util.HashMap;
+
 public class AppProvider extends ContentProvider {
     private static final String TAG = "AppProvider";
 
@@ -21,6 +23,9 @@ public class AppProvider extends ContentProvider {
     private static final int MEETINGS_ID = 101;
     private static final int PERSONS = 200;
     private static final int PERSONS_ID = 201;
+    private static final int FORWHAT = 300;
+    private static final int FORWHAT_ID = 301;
+    private static final int FORWHAT_FROM_MEETING = 400;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -29,6 +34,9 @@ public class AppProvider extends ContentProvider {
         uriMatcher.addURI(CONTENT_AUTHORITY, MeetingTable.TABLE_NAME + "/#", MEETINGS_ID);
         uriMatcher.addURI(CONTENT_AUTHORITY, PersonTable.TABLE_NAME, PERSONS);
         uriMatcher.addURI(CONTENT_AUTHORITY, PersonTable.TABLE_NAME + "/#", PERSONS_ID);
+        uriMatcher.addURI(CONTENT_AUTHORITY, ForWhatTable.TABLE_NAME, FORWHAT);
+        uriMatcher.addURI(CONTENT_AUTHORITY, ForWhatTable.TABLE_NAME + "/#", FORWHAT_ID);
+        uriMatcher.addURI(CONTENT_AUTHORITY, ForWhatFromMeeting.TABLE_NAME, FORWHAT_FROM_MEETING);
     }
 
     @Override
@@ -62,6 +70,23 @@ public class AppProvider extends ContentProvider {
                 queryBuilder.setTables(PersonTable.TABLE_NAME);
                 long personId = PersonTable.getPersonsId(uri);
                 queryBuilder.appendWhere(PersonTable.Column._ID + " = " + personId);
+                break;
+            case FORWHAT:
+                queryBuilder.setTables(ForWhatTable.TABLE_NAME);
+                break;
+            case FORWHAT_ID:
+                queryBuilder.setTables(ForWhatTable.TABLE_NAME);
+                long forWhatId = ForWhatTable.getForWhatId(uri);
+                queryBuilder.appendWhere(ForWhatTable.Column._ID + " = " + forWhatId);
+                break;
+            case FORWHAT_FROM_MEETING:
+                queryBuilder.setTables(ForWhatTable.TABLE_NAME + " INNER JOIN " +
+                                PersonTable.TABLE_NAME + " ON " +
+                                ForWhatTable.PrefixColumn.ID_PERSON + " = " + PersonTable.PrefixColumn._ID +
+                                " INNER JOIN " +
+                                MeetingTable.TABLE_NAME + " ON " +
+                                PersonTable.PrefixColumn.ID_MEETING + " = " + MeetingTable.PrefixColumn._ID );
+//                queryBuilder.appendWhere(MeetingTable.PrefixColumn._ID + " = ?";
                 break;
             default:
                 throw new IllegalArgumentException("Unknown uri: " + uri);
@@ -105,24 +130,36 @@ public class AppProvider extends ContentProvider {
         Uri newUri;
         long recordId;
 
-        if(match == MEETINGS) {
-            db = dbHelper.getWritableDatabase();
-            recordId = db.insert(MeetingTable.TABLE_NAME, null, values);
-            if(recordId >= 0) {
-                newUri = MeetingTable.buildUri(recordId);
-            } else {
-                throw new android.database.SQLException("Failed to insert into " + uri.toString());
-            }
-        } else if(match == PERSONS) {
-            db = dbHelper.getWritableDatabase();
-            recordId = db.insert(PersonTable.TABLE_NAME, null, values);
-            if(recordId >= 0) {
-                newUri = PersonTable.buildUri(recordId);
-            } else {
-                throw new android.database.SQLException("Failed to insert into " + uri.toString());
-            }
-        } else {
-            throw new IllegalArgumentException("Unknown uri " + uri);
+        switch (match) {
+            case MEETINGS:
+                db = dbHelper.getWritableDatabase();
+                recordId = db.insert(MeetingTable.TABLE_NAME, null, values);
+                if (recordId >= 0) {
+                    newUri = MeetingTable.buildUri(recordId);
+                } else {
+                    throw new android.database.SQLException("Failed to insert into " + uri.toString());
+                }
+                break;
+            case PERSONS:
+                db = dbHelper.getWritableDatabase();
+                recordId = db.insert(PersonTable.TABLE_NAME, null, values);
+                if (recordId >= 0) {
+                    newUri = PersonTable.buildUri(recordId);
+                } else {
+                    throw new android.database.SQLException("Failed to insert into " + uri.toString());
+                }
+                break;
+            case FORWHAT:
+                db = dbHelper.getWritableDatabase();
+                recordId = db.insert(ForWhatTable.TABLE_NAME, null, values);
+                if (recordId >= 0) {
+                    newUri = ForWhatTable.buildUri(recordId);
+                } else {
+                    throw new android.database.SQLException("Failed to insert into " + uri.toString());
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown uri " + uri);
         }
 
         if(recordId >= 0) {

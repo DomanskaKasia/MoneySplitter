@@ -36,6 +36,7 @@ public class AddPersonListActivity extends AppCompatActivity {
 
         final ArrayList<Integer> personsIds = new ArrayList<>();
 
+        //get cursor of ids and names from Persons table
         Cursor cursor = getContentResolver().query(PersonTable.CONTENT_URI,
                 new String[] {PersonTable.Column._ID, PersonTable.Column.NAME},
                 PersonTable.Column.ID_MEETING + " = ?",
@@ -46,6 +47,7 @@ public class AddPersonListActivity extends AppCompatActivity {
         if(cursor != null) {
             List<String> names = new ArrayList<>();
 
+            //make list of names and list of personsIds Persons Table
             if(cursor.moveToFirst()) {
                 do {
                     Log.d(TAG, "onCreate: " + cursor.getColumnIndex(PersonTable.Column.NAME));
@@ -53,6 +55,8 @@ public class AddPersonListActivity extends AppCompatActivity {
                     personsIds.add(cursor.getInt(cursor.getColumnIndex(PersonTable.Column._ID)));
                 } while (cursor.moveToNext());
             }
+
+            //show list of persons
             if(!names.isEmpty()) {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                         AddPersonListActivity.this,
@@ -80,6 +84,7 @@ public class AddPersonListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddPersonListActivity.this, AddForWhatActivity.class);
+                intent.putExtra("meetingId", meetingId);
                 intent.putIntegerArrayListExtra("personsIds", personsIds);
                 startActivity(intent);
             }
