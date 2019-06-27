@@ -1,4 +1,4 @@
-package com.example.moneysplitter;
+package com.example.moneysplitter.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
-
-import java.util.HashMap;
 
 public class AppProvider extends ContentProvider {
     private static final String TAG = "AppProvider";
@@ -192,7 +190,9 @@ public class AppProvider extends ContentProvider {
                 criteria = new StringBuilder(MeetingTable.Column._ID + " = " + meetingId);
 
                 if(selection != null && selection.length() > 0) {
-                    criteria.append(" AND (" + selection + ")");
+                    criteria.append(" AND (")
+                            .append(selection)
+                            .append(")");
                 }
 
                 count = db.delete(MeetingTable.TABLE_NAME, criteria.toString(), selectionArgs);
@@ -231,7 +231,9 @@ public class AppProvider extends ContentProvider {
                 criteria = new StringBuilder(MeetingTable.Column._ID + " = " + meetingId);
 
                 if(selection != null && selection.length() > 0) {
-                    criteria.append(" AND (" + selection + ")");
+                    criteria.append(" AND (")
+                            .append(selection)
+                            .append(")");
                 }
 
                 count = db.update(MeetingTable.TABLE_NAME, values, criteria.toString(), selectionArgs);

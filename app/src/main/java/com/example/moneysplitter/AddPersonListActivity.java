@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.moneysplitter.data.PersonTable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class AddPersonListActivity extends AppCompatActivity {
 
             //show list of persons
             if(!names.isEmpty()) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
                         AddPersonListActivity.this,
                         R.layout.add_person_list_detail,
                         R.id.person_name_list,
@@ -67,6 +69,8 @@ public class AddPersonListActivity extends AppCompatActivity {
             } else {
                 Log.d(TAG, "onCreate: table is empty");
             }
+
+            cursor.close();
         } else {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }

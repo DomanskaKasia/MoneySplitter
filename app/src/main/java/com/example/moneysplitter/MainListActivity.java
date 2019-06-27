@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.example.moneysplitter.data.PersonTable;
+
 import java.security.InvalidParameterException;
 
 public class MainListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {

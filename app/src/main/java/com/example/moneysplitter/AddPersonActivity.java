@@ -3,9 +3,6 @@ package com.example.moneysplitter;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.moneysplitter.data.MeetingTable;
+import com.example.moneysplitter.data.PersonTable;
 
 public class AddPersonActivity extends AppCompatActivity {
     private static final String TAG = "AddPersonActivity";
@@ -56,8 +56,8 @@ public class AddPersonActivity extends AppCompatActivity {
 
 
     private void addMeetingToDatabase() {
-        TextView nameView = (TextView) findViewById(R.id.person_name);
-        TextView daysView = (TextView) findViewById(R.id.person_days);
+        TextView nameView = findViewById(R.id.person_name);
+        TextView daysView = findViewById(R.id.person_days);
 
         name = String.valueOf(nameView.getText());
         String days = String.valueOf(daysView.getText());

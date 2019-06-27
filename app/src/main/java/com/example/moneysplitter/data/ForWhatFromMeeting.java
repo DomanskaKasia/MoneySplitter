@@ -1,10 +1,10 @@
-package com.example.moneysplitter;
+package com.example.moneysplitter.data;
 
 import android.content.ContentUris;
 import android.net.Uri;
 
-import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY;
-import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY_URI;
+import static com.example.moneysplitter.data.AppProvider.CONTENT_AUTHORITY;
+import static com.example.moneysplitter.data.AppProvider.CONTENT_AUTHORITY_URI;
 
 public class ForWhatFromMeeting {
     public static final String TABLE_NAME = "ForWhatFromMeeting";

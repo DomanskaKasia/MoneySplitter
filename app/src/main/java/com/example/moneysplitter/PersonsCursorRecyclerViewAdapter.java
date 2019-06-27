@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.moneysplitter.data.PersonTable;
+
 public class PersonsCursorRecyclerViewAdapter extends RecyclerView.Adapter<PersonsCursorRecyclerViewAdapter.PersonViewHolder> {
     private static final String TAG = "MainListCursorRecyclerV";
     private Cursor cursor;//todo powtarzające się imiona
@@ -25,7 +27,7 @@ public class PersonsCursorRecyclerViewAdapter extends RecyclerView.Adapter<Perso
         TextView days;
         TextView value;
 
-        public PersonViewHolder(@NonNull View itemView) {
+        private PersonViewHolder(@NonNull View itemView) {
             super(itemView);
             Log.d(TAG, "PersonViewHolder: constructor called");
 

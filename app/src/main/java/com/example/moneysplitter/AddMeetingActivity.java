@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.moneysplitter.data.MeetingTable;
+
 public class AddMeetingActivity extends AppCompatActivity {
     private static final String TAG = "AddMeetingActivity";
 
@@ -49,8 +51,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
     private void addMeetingtoDatabase() {
-        TextView nameView = (TextView) findViewById(R.id.meeting_name);
-        TextView daysView = (TextView) findViewById(R.id.meeting_days);
+        TextView nameView = findViewById(R.id.meeting_name);
+        TextView daysView = findViewById(R.id.meeting_days);
 
         name = String.valueOf(nameView.getText());
         days = String.valueOf(daysView.getText());

@@ -1,26 +1,22 @@
-package com.example.moneysplitter;
+package com.example.moneysplitter.data;
 
 import android.content.ContentUris;
 import android.net.Uri;
 
-import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY;
-import static com.example.moneysplitter.AppProvider.CONTENT_AUTHORITY_URI;
+import static com.example.moneysplitter.data.AppProvider.CONTENT_AUTHORITY;
+import static com.example.moneysplitter.data.AppProvider.CONTENT_AUTHORITY_URI;
 
-public class PersonTable {
-    public static final String TABLE_NAME = "Persons";
+public class MeetingTable {
+    public static final String TABLE_NAME = "Meetings";
 
     public static class Column {
         public static final String _ID = "_id";
         public static final String NAME = "Name";
         public static final String DAYS = "Number_of_days";
-        public static final String ID_MEETING = "id_meetings";
     }
 
     public static class PrefixColumn {
-        public static final String _ID = TABLE_NAME + "." + Column._ID;
-        public static final String NAME = TABLE_NAME + "." + Column.NAME;
-        public static final String DAYS = TABLE_NAME + "." + Column.DAYS;
-        public static final String ID_MEETING = TABLE_NAME + "." + Column.ID_MEETING;
+        public static final String _ID = TABLE_NAME + "." + MeetingTable.Column._ID;
     }
 
     public static final Uri CONTENT_URI = Uri.withAppendedPath(CONTENT_AUTHORITY_URI, TABLE_NAME);
@@ -32,7 +28,7 @@ public class PersonTable {
         return ContentUris.withAppendedId(CONTENT_URI, id);
     }
 
-    static long getPersonsId(Uri uri) {
+    static long getMeetingId(Uri uri) {
         return ContentUris.parseId(uri);
     }
 }

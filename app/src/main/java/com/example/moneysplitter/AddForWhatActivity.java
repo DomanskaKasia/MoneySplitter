@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.moneysplitter.data.ForWhatTable;
+
 import java.util.ArrayList;
 
 public class AddForWhatActivity extends AppCompatActivity {
@@ -51,7 +53,7 @@ public class AddForWhatActivity extends AppCompatActivity {
 
 
     void addForWhatToDatabase() {
-        TextView nameView = (TextView) findViewById(R.id.for_what_name);
+        TextView nameView = findViewById(R.id.for_what_name);
 
         String name = String.valueOf(nameView.getText());
 

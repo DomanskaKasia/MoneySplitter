@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.moneysplitter.data.MeetingTable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,20 +73,21 @@ public class MainActivity extends AppCompatActivity {
                         names.add(cursor.getString(cursor.getColumnIndex(MeetingTable.Column.NAME)));
                     } while (cursor.moveToNext());
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
                         MainActivity.this,
                         R.layout.add_meeting_detail,
                         R.id.meeting_name,
                         names);
                 meetingNames.setAdapter(adapter);
             } else {
-                TextView noMeetingListMessage = (TextView) findViewById(R.id.no_meeting_list_info);
+                TextView noMeetingListMessage = findViewById(R.id.no_meeting_list_info);
                 noMeetingListMessage.setText(R.string.no_meeting_list_info);
                 noMeetingListMessage.setVisibility(View.VISIBLE);
             }
+
+            cursor.close();
         } else {
             Toast.makeText(this, "Baza danych jest niedostępna", Toast.LENGTH_SHORT).show();
         }
-        cursor.close();
     }
 }
