@@ -61,11 +61,16 @@ public class PersonsCursorRecyclerViewAdapter extends RecyclerView.Adapter<Perso
 
             String name = cursor.getString(cursor.getColumnIndex(PersonTable.Column.NAME));
             String days = cursor.getString(cursor.getColumnIndex(PersonTable.Column.DAYS));
-//            String view = cursor.getString(cursor.getColumnIndex(PersonTable.Column. ));
+
+            String daysText;
+            if(days.equals("1")) {
+                daysText = " dzień";
+            } else {
+                daysText = " dni";
+            }
 
             holder.name.setText(name);
-            holder.days.setText(days);
-//            holder.value.setText(value);
+            holder.days.setText(", " + days + daysText);
         }
     }
 

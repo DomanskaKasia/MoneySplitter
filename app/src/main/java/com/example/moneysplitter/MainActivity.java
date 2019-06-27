@@ -30,18 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
         showMeetingsList();
 
-        //Clicking on item in the list
+        //Click on item in the list
         meetingNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Log.d(TAG, "onItemClick: " + item);
+                String meetingName = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "onItemClick: " + meetingName);
 
-                startActivity( new Intent(MainActivity.this, MainListActivity.class) );
+                Intent intent = new Intent(MainActivity.this, MainListActivity.class);
+                intent.putExtra("meetingName", meetingName);
+                startActivity(intent);
             }
         });
 
-        //Clicking on floating button
+        //Click on floating button
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

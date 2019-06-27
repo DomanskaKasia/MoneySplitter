@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.moneysplitter.data.PersonTable;
 
@@ -25,6 +26,7 @@ public class MainListActivity extends AppCompatActivity implements LoaderManager
 
     public static final int LOADER_ID = 0;
 
+    private String meetingName;
     private PersonsCursorRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -34,6 +36,26 @@ public class MainListActivity extends AppCompatActivity implements LoaderManager
         setContentView(R.layout.activity_main_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //get value from intent
+        meetingName = getIntent().getStringExtra("meetingName");
+
+        //show summary information's
+        TextView meetingNameInSummary = findViewById(R.id.meeting_name_in_summary);
+        TextView daysInSummary = findViewById(R.id.days_in_summary);
+
+        String days = String.valueOf(summaryMeetingDays());
+
+        String daysText;
+        if(days.equals("1")) {
+            daysText = " dzień";
+        } else {
+            daysText = " dni";
+        }
+
+        meetingNameInSummary.setText(meetingName);
+        daysInSummary.setText(", " + days + daysText);
+
 
         showPersonsList();
 
@@ -94,6 +116,8 @@ public class MainListActivity extends AppCompatActivity implements LoaderManager
 
     }
 
+
+
     private void showPersonsList() {
         String[] projections = {PersonTable.Column._ID,
                 PersonTable.Column.NAME,
@@ -111,5 +135,9 @@ public class MainListActivity extends AppCompatActivity implements LoaderManager
         recyclerView.setAdapter(adapter);
 
         LoaderManager.getInstance(this).initLoader(LOADER_ID, null, this);
+    }
+
+    private int summaryMeetingDays() {
+        return 0;
     }
 }
