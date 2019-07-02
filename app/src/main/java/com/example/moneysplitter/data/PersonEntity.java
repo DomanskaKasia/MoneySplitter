@@ -3,13 +3,14 @@ package com.example.moneysplitter.data;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity (tableName = "Meetings")
-public class MeetingEntity {
+@Entity(tableName = "Persons")
+public class PersonEntity {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     private int uid;
     public String name;
     public int days;
+    public int meetingId;
 
     public int getUid() {
         return uid;
@@ -33,5 +34,13 @@ public class MeetingEntity {
 
     public void setDays(int days) {
         this.days = days;
+    }
+
+    public int getMeetingId() {
+        return meetingId;
+    }
+
+    public void setMeetingId(int meetingId) {
+        this.meetingId = meetingId;
     }
 }

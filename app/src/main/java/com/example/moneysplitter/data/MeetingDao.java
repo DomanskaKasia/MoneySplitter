@@ -23,7 +23,7 @@ public interface MeetingDao {
     void insertAll(MeetingEntity... meeting);
 
     @Query("UPDATE Meetings SET name = (:name) AND days = (:days) WHERE uId = (:id)")
-    void changeMeetingById(int id, String name, int days);
+    void changeById(int id, String name, int days);
 
     @Delete()
     void delete(MeetingEntity meeting);
