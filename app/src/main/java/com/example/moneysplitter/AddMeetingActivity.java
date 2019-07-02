@@ -18,7 +18,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     private static final String TAG = "AddMeetingActivity";
 
     private DatabaseApp database;
-//    private Button add_btn;
     private String name, days;
 
     @Override
