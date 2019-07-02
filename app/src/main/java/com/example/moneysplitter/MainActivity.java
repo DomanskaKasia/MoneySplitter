@@ -16,7 +16,7 @@ import com.example.moneysplitter.data.DatabaseApp;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";//todo niepowtarzające się nazwy
 
     private DatabaseApp database;
     private ListView meetingNames;

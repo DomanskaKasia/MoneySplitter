@@ -70,9 +70,10 @@ public class AddPersonListActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.next)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int[] personsIds = database.personDao().getIds(meetingId);
                 Intent intent = new Intent(AddPersonListActivity.this, AddGoalActivity.class);
                 intent.putExtra("meetingId", meetingId);
-                intent.putIntegerArrayListExtra("personsIds", personsIds);
+                intent.putExtra("personsIds", personsIds);
                 startActivity(intent);
             }
         });

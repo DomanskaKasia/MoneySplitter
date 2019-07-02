@@ -21,7 +21,7 @@ public class AddGoalsListActivity extends AppCompatActivity {
     private DatabaseApp database;
     private int meetingId;
     private ListView goalsTitles;
-    private ArrayList<Integer> personsIds;
+//    private ArrayList<Integer> personsIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +32,13 @@ public class AddGoalsListActivity extends AppCompatActivity {
 
         //get values from intent
         meetingId = getIntent().getIntExtra("meetingId", 0);
-        personsIds = getIntent().getIntegerArrayListExtra("personsIds");
-        Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
+//        personsIds = getIntent().getIntegerArrayListExtra("personsIds");
+//        Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         goalsTitles = (ListView) findViewById(R.id.for_what_names);
 
         if(database != null) {
-            List<String> titles = database.goalDao().getTitles(personsIds);
+            List<String> titles = database.goalPersonMeetingDao().getGoalsTitles(meetingId);
 
             //show list of names
                 if(!titles.isEmpty()) {
@@ -58,7 +58,7 @@ public class AddGoalsListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AddGoalsListActivity.this, AddGoalActivity.class);
                 intent.putExtra("meetingId", meetingId);
-                intent.putIntegerArrayListExtra("personsIds", personsIds);
+//                intent.putIntegerArrayListExtra("personsIds", personsIds);
                 startActivity(intent);
             }
         });

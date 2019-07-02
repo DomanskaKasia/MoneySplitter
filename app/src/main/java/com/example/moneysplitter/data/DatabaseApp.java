@@ -14,6 +14,7 @@ public abstract class DatabaseApp extends RoomDatabase {
     public abstract MeetingDao meetingDao();
     public abstract PersonDao personDao();
     public abstract GoalDao goalDao();
+    public abstract GoalPersonMeetingDao goalPersonMeetingDao();
 
     public static DatabaseApp getInstance(Context context) {
         if (INSTANCE == null) {
