@@ -12,14 +12,11 @@ import android.widget.Toast;
 import com.example.moneysplitter.data.DatabaseApp;
 import com.example.moneysplitter.data.GoalEntity;
 
-import java.util.ArrayList;
-
 public class AddGoalActivity extends AppCompatActivity {
     private static final String TAG = "AddGoalActivity";
 
     private DatabaseApp database;
     private int meetingId;
-    private int[] personsIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +27,6 @@ public class AddGoalActivity extends AppCompatActivity {
 
         //get values from intent
         meetingId = getIntent().getIntExtra("meetingId", 0);
-//        personsIds = getIntent().getIntegerArrayListExtra("personsIds");
-//        Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         //click on add button
         ((Button) findViewById(R.id.add_btn3)).setOnClickListener(new View.OnClickListener() {
@@ -43,7 +38,6 @@ public class AddGoalActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AddGoalActivity.this, AddGoalsListActivity.class);
                 intent.putExtra("meetingId", meetingId);
-//                intent.putIntegerArrayListExtra("personsIds", personsIds);
                 startActivity(intent);
 
                 Log.d(TAG, "onClick: ends");
@@ -59,7 +53,7 @@ public class AddGoalActivity extends AppCompatActivity {
         TextView nameView = findViewById(R.id.for_what_name);
 
         String name = String.valueOf(nameView.getText());
-        personsIds = database.personDao().getIds(meetingId);
+        int[] personsIds = database.personDao().getIds(meetingId);
 
         if(!name.equals("")) {
             for(int id : personsIds) {

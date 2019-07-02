@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import com.example.moneysplitter.data.DatabaseApp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddGoalsListActivity extends AppCompatActivity {
@@ -21,7 +20,6 @@ public class AddGoalsListActivity extends AppCompatActivity {
     private DatabaseApp database;
     private int meetingId;
     private ListView goalsTitles;
-//    private ArrayList<Integer> personsIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +30,6 @@ public class AddGoalsListActivity extends AppCompatActivity {
 
         //get values from intent
         meetingId = getIntent().getIntExtra("meetingId", 0);
-//        personsIds = getIntent().getIntegerArrayListExtra("personsIds");
-//        Log.d(TAG, "onCreate: personsIds: " + personsIds.toString());
 
         goalsTitles = (ListView) findViewById(R.id.for_what_names);
 
@@ -58,7 +54,6 @@ public class AddGoalsListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AddGoalsListActivity.this, AddGoalActivity.class);
                 intent.putExtra("meetingId", meetingId);
-//                intent.putIntegerArrayListExtra("personsIds", personsIds);
                 startActivity(intent);
             }
         });

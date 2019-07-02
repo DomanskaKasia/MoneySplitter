@@ -8,7 +8,7 @@ import java.util.List;
 @Dao
 public interface GoalPersonMeetingDao {
 
-    @Query("SELECT Goals.title FROM Goals " +
+    @Query("SELECT DISTINCT Goals.title FROM Goals " +
             "INNER JOIN Persons ON Goals.personId = Persons.uid " +
             "INNER JOIN Meetings ON Persons.meetingId = Meetings.uid " +
             "WHERE Meetings.uid = (:meetingId)")
