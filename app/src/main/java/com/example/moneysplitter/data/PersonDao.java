@@ -21,8 +21,8 @@ public interface PersonDao {
     @Query("SELECT name FROM Persons WHERE meetingId = (:meetingId)")
     List<String> getNames(int meetingId);
 
-    @Query("SELECT uid FROM Persons WHERE name = (:name) AND days = (:days)")
-    int getId(String name, int days);
+    @Query("SELECT uid FROM Persons WHERE meetingId = (:meetingId) AND name = (:name)")
+    int getId(int meetingId, String name);
 
     @Insert
     void insertAll(PersonEntity... person);

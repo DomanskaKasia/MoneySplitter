@@ -39,7 +39,7 @@ public class AddPersonActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick: starts");
 
                 addMeetingToDatabase();
-                int personId = database.personDao().getId(name, Integer.parseInt(days));
+                int personId = database.personDao().getId(meetingId, name);
 
                 if(personId != 0) {
                     Intent intent = new Intent(AddPersonActivity.this, AddPersonListActivity.class);
