@@ -13,7 +13,7 @@ public interface MeetingDao {
     @Query("SELECT * FROM Meetings")
     List<MeetingEntity> getAll();
 
-    @Query("SELECT name FROM Meetings")
+    @Query("SELECT name FROM Meetings ORDER BY 1 DESC")
     List<String> getNames();
 
     @Query("SELECT uid FROM Meetings WHERE name = (:name) AND days = (:days)")

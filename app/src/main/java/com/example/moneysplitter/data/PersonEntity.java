@@ -10,6 +10,7 @@ public class PersonEntity {
     private int uid;
     public String name;
     public int days;
+    public double value;
     public int meetingId;
 
     public int getUid() {
@@ -34,6 +35,14 @@ public class PersonEntity {
 
     public void setDays(int days) {
         this.days = days;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 
     public int getMeetingId() {

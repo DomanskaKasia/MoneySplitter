@@ -1,18 +1,17 @@
 package com.example.moneysplitter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.moneysplitter.data.DatabaseApp;
 import com.example.moneysplitter.data.MeetingEntity;
 import com.example.moneysplitter.data.PersonEntity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -46,15 +45,15 @@ public class MainListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainListActivity.this, AddPayActionActivity.class);
+                intent.putExtra("meetingId", meeting.getUid());
+                startActivity(intent);
             }
         });
     }
 
     private void showPersonsList() {
         List<PersonEntity> persons = database.personDao().getPersonsList(meeting.getUid());
-        Log.d(TAG, "showPersonsList: " + persons.toString());
 
         recyclerView = (RecyclerView) findViewById(R.id.main_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

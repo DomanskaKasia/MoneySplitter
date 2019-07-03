@@ -23,7 +23,9 @@ public class AddPersonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_person);//todo sprawdzanie czy ilość dni nie jest większa od ilości dni spotkania
+        setContentView(R.layout.activity_add_person);
+        //todo sprawdzanie czy ilość dni nie jest większa od ilości dni spotkania
+        //todo dodać możliwość dodawania osób z konkaktów
 
         database = DatabaseApp.getInstance(this);
 
@@ -75,6 +77,7 @@ public class AddPersonActivity extends AppCompatActivity {
         PersonEntity person = new PersonEntity();
         person.setName(name);
         person.setDays(Integer.parseInt(days));
+        person.setValue(0.0);
         person.setMeetingId(meetingId);
         database.personDao().insertAll(person);
 

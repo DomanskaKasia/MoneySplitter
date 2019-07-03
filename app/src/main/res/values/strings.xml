@@ -42,4 +42,11 @@
     <string name="day"> dzień</string>
     <string name="days"> dni</string>
 
+    <!--add_pay_action-->
+    <string name="pay_radio">płacę</string>
+    <string name="give_back_radio">oddaję</string>
+    <string name="person">Kto:</string>
+    <string name="goal">Za co:</string>
+    <string name="value">Ile:</string>
+
 </resources>
