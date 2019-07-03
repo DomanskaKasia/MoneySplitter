@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
         meetingNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String meetingName = parent.getItemAtPosition(position).toString();
-//                Log.d(TAG, "onItemClick: " + meetingName);
-//
-//                Intent intent = new Intent(MainActivity.this, MainListActivity.class);
-//                intent.putExtra("meetingName", meetingName);
-//                startActivity(intent);
+                String meetingName = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "onItemClick: " + meetingName);
+
+                Intent intent = new Intent(MainActivity.this, MainListActivity.class);
+                intent.putExtra("meetingName", meetingName);
+                startActivity(intent);
             }
         });
 

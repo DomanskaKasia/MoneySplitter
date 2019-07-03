@@ -19,6 +19,9 @@ public interface MeetingDao {
     @Query("SELECT uid FROM Meetings WHERE name = (:name) AND days = (:days)")
     int getId(String name, int days);
 
+    @Query("SELECT * FROM Meetings WHERE name = (:name)")
+    MeetingEntity getItem(String name);
+
     @Insert
     void insertAll(MeetingEntity... meeting);
 

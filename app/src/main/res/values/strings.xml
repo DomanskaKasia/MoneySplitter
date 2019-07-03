@@ -38,4 +38,8 @@
     <string name="name_validation_info">Wpisz nazwę spotkania</string>
     <string name="no_persons_info">Nie dodałeś jeszcze żadnej osoby, aby to zrobić, kliknij w menu.</string>
 
+    <!--main_list-->
+    <string name="day"> dzień</string>
+    <string name="days"> dni</string>
+
 </resources>
